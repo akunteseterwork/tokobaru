@@ -4,7 +4,7 @@ const nextConfig = {
         remotePatterns: [
           {
             protocol: 'https',
-            hostname: 'tokobaru.alwaysdata.net',
+            hostname: 'tokobaru.alwaysdata.net/v1',
             pathname: '/uploads/**',
           },
         ],
