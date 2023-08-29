@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+    background-color: #F3F4F6;
+}
+
+
+.shadow-image {
+  filter: drop-shadow(0 35px 20px rgba(0, 0, 0, 0.5));
+  transition: transform 0.2s ease-in-out;
+}
+
+.shadow-image-detail {
+  filter: drop-shadow(0 35px 20px rgba(0, 0, 0, 0.5));
+}
+
+.shadow-image:hover {
+  transform: translateY(-20px);
+}
+
+.expand {
+  opacity: 0;
+  animation: fade-in 0.3s ease forwards;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.shift-right {
+  opacity: 0;
+  animation: shift-in 0.3s ease forwards;
+}
+
+@keyframes shift-in {
+  0% {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.pagination-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+
+@media (min-width: 768px) {
+  .pagination-container {
+    margin-right: 9.5rem;
+  }
+}
+
+.circle-outline {
+  display: inline-block;
+  border: 2px solid black; 
+  border-radius: 50%; 
+  padding: 2px;
+}
+
+@keyframes slideBounce {
+  0% {
+    transform: translateX(100%);
+  }
+  70% {
+    transform: translateX(0);
+  }
+  85% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-bounce {
+  animation: slideBounce 1s cubic-bezier(0.68, -0.55, 0.27, 1.55) both;
+}
+
+.hidden {
+  display: none;
+}
+
+
+
+
+
