@@ -1,7 +1,13 @@
 {
-    "frontend": {
+    "build": {
+      "image": "node:16.14-alpine",
+      "command": "yarn install && yarn build", 
+      "publicDir": ".next",
       "distDir": ".next",
-      "buildCommand": "yarn build"
+      "baseDir": ".",
+      "environment": {
+        "NEXT_PUBLIC_API_URL":"https://tokobaru.alwaysdata.net/v1"
+      }
     }
   }
   
