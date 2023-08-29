@@ -1,0 +1,7 @@
+{
+    "frontend": {
+      "distDir": ".next",
+      "buildCommand": "yarn build"
+    }
+  }
+  
