@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import AddToCart from '../../../components/modals/addToCartModal';
+import AddToCart from '../../components/modals/addToCartModal';
 import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import { fetchWithToken } from '@/utils/fetcher';
 
