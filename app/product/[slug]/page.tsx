@@ -1,35 +1,9 @@
 import React, { useState } from 'react';
-import { fetchWithToken } from '../../../utils/fetcher';
-import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import Image from 'next/image';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import AddToCart from '../../../components/modals/addToCartModal';
-import { GetStaticPaths, GetStaticProps } from 'next';
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
-  const data = await response.json();
-  
-  const paths = data.map((product: any) => ({
-    params: { slug: product.id.toString() }, 
-  }));
-  
-  return {
-    paths,
-    fallback: true, 
-  };
-};
-
-export const getStaticProps: GetStaticProps = async ({ params }) => {
-  const slug = params?.slug;
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${slug}`);
-  const data = await response.json();
-  
-  return {
-    props: {
-      data,
-    },
-  };
-};
+import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
+import { fetchWithToken } from '@/utils/fetcher';
 
 interface ProductDetail {
   id: number;
@@ -46,12 +20,44 @@ interface DetailProps {
   data: ProductDetail;
 }
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+  const data = await res.json();
+
+  const paths = data.map((product: any) => ({
+    params: { slug: product.id.toString() },
+  }));
+
+  return {
+    paths,
+    fallback: false
+  };
+};
+
+export const getStaticProps: GetStaticProps<DetailProps> = async ({ params }) => {
+  const slug = params?.slug;
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${slug}`);
+  const data = await res.json();
+
+  return {
+    props: {
+      data,
+    },
+  };
+};
+
 export default function Detail({ data }: DetailProps) {
   const [quantity, setQuantity] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
+  };
+
+  const handleDecrement = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
   };
 
   const handleAddToCart = async () => {
@@ -82,12 +88,6 @@ export default function Detail({ data }: DetailProps) {
     }).format(money);
   };
 
-  const handleDecrement = () => {
-    if (quantity > 1) {
-      setQuantity(quantity - 1);
-    }
-  };
-
   return (
     <div className="bg-gray-100 flex justify-center items-center p-8">
       <div className="max-w-4xl w-full p-2 rounded-lg">
@@ -106,7 +106,10 @@ export default function Detail({ data }: DetailProps) {
             <p className="text-gray-600">{formatRupiah(data.price)}</p>
             <p className="text-gray-500 mt-2">In Stock: {data.stock}</p>
             <div className="mt-4 flex items-center">
-              <button onClick={handleDecrement} className="text-red-600">
+              <button
+                onClick={handleDecrement}
+                className="text-red-600"
+              >
                 <FaMinus />
               </button>
               <input
@@ -120,14 +123,14 @@ export default function Detail({ data }: DetailProps) {
                 }}
                 className="w-12 text-center mx-2 text-black border-blue-300 rounded"
               />
-              <button onClick={handleIncrement} className="text-green-600">
+              <button
+                onClick={handleIncrement}
+                className="text-green-600"
+              >
                 <FaPlus />
               </button>
             </div>
-            <button
-              className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md flex items-center"
-              onClick={handleAddToCart}
-            >
+            <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md flex items-center" onClick={handleAddToCart}>
               <FaShoppingCart className="mr-2" />
               Add to Cart
             </button>
@@ -136,12 +139,8 @@ export default function Detail({ data }: DetailProps) {
             </div>
           </div>
           {modalOpen && (
-            <AddToCart
-              title="Add to Cart Success"
-              message="You can now checkout or close this to continue shopping"
-              onClose={handleCloseModal}
-            />
-          )}
+        <AddToCart title="Add to Cart Success" message="You can now checkout or close this to continue shopping"  onClose={handleCloseModal}/>
+      )}
         </div>
       </div>
     </div>
