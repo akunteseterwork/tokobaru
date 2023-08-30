@@ -118,3 +118,19 @@ export default function Detail({ params }: { params: { slug: string } }) {
     </div>
   );
 }
+
+export async function getStaticPaths() {
+  return {
+    paths: [],
+    fallback: 'blocking'
+  };
+}
+
+export async function getStaticProps({ params }: { params: { slug: string } }) {
+  const product = { slug: params.slug };
+  return {
+    props: {
+      product,
+    },
+  };
+}
