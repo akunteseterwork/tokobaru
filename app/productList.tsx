@@ -34,7 +34,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => (
                 <div className="relative sm:w-42 sm:h-42 lg:w-32 lg:h-32 md:w-38 md:h-38">
                     <Link href={`/product/${product.id}`}>
                         <div className="relative w-full h-full rounded-lg shadow-image">
-                            <img src={`/api/proxy?imageUrl=${encodeURIComponent(product.picture)}`} alt={product.name} width={200} height={200} />
+                            <Image src={product.picture} alt={product.name} width={200} height={200} />
                         </div>
                     </Link>
                     <div className="absolute bottom-0 right-0 bg-green-600 bg-opacity-80 text-sm text-white text-opacity-75 rounded-br-md rounded-tl-md px-1 py-0">
