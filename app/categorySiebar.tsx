@@ -14,7 +14,7 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
     if (categoryId === "all") {
       router.push("/");
     } else {
-      router.push(`/categories/${categoryId}`);
+      router.push(`/category/${categoryId}`);
     }
   };
 
@@ -43,21 +43,21 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
       {isExpanded && (
         <div className="text-black text-xs">
           <div
-            className="expand flex items-center mb-2"
+            className={`expand flex items-center mb-2 ${selectedCategory === "all" ? "selected" : ""}`}
             onClick={() => handleCategoryClick("all")}
           >
             <FaChevronCircleRight className="mr-2" />
-            <span className="font-semibold text-sm">All</span>
+            <span className={`font-semibold text-sm ${selectedCategory === "all" ? "selected" : ""}`}>All</span>
           </div>
           {data.data.map((category: any, index: number) => (
             <div
               key={category.id}
-              className="expand flex items-center mb-2"
+              className={`expand flex items-center mb-2 ${selectedCategory === category.id ? "selected" : ""}`}
               style={{ animationDelay: `${index * 100}ms` }}
               onClick={() => handleCategoryClick(category.id)}
             >
               <FaChevronCircleRight className="mr-2" />
-              <span className="font-semibold text-sm">{category.name}</span>
+              <span className={`font-semibold text-sm ${selectedCategory === category.id ? "selected" : ""}`}>{category.name}</span>
             </div>
           ))}
         </div>

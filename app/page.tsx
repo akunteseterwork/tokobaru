@@ -1,12 +1,14 @@
 "use client"
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { fetchData } from '../utils/fetcher';
+import { fetchData } from '@/utils/fetcher';
 import SidebarSection from './categorySiebar';
-import ErrorMessage from '../components/modals/errorMessage';
+import ErrorMessage from '@/components/modals/errorMessage';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-
+import NavbarLayout from './navbarLayout';
+import FooterLayout from './footerLayout';
 import ProductList from './productList';
+import HeroSection from './heroSection';
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -30,6 +32,9 @@ export default function Home() {
     );
 
   return (
+    <>
+    <NavbarLayout />
+    <HeroSection />
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
       <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
@@ -64,5 +69,7 @@ export default function Home() {
         </div>
       </div>
     </div>
+    <FooterLayout />
+    </>
   );
 }
