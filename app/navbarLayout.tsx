@@ -15,6 +15,7 @@ export default function NavbarLayout() {
     const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false);
     const [showSuccessRegisterModal, setShowSuccessRegisterModal] = useState(false);
     const isAuthenticated = useAuth();
+    const [userData, setUserData] = useState(null);
 
     const handleLoginClick = () => {
         setShowLoginModal(true);
@@ -82,7 +83,7 @@ export default function NavbarLayout() {
                                     </span>
                                 </Link>
                                 <div className="">
-                                    <ProfileButton onLogout={handleConfirmLogout} />
+                                    <ProfileButton onLogout={handleConfirmLogout} userData={userData} />
                                 </div>
                             </>
                         ) : (
