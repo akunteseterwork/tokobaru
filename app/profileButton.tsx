@@ -1,4 +1,3 @@
-"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { FaListAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
@@ -25,6 +24,11 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
   const dropdownRef = useRef(null);
   const router = useRouter();
 
+
+  const handleProfileClick = () => {
+    setShowDropdown((prevShowDropdown) => !prevShowDropdown);
+  };
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (dropdownRef.current && !(dropdownRef.current as any).contains(event.target as Node)) {
@@ -39,10 +43,6 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
     };
   }, []);
 
-  const handleProfileClick = () => {
-    setShowDropdown((prevShowDropdown) => !prevShowDropdown);
-  };
-
   const handleLogoutClick = () => {
     setShowLogoutConfirmation(true);
   };
@@ -56,7 +56,6 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
     setShowLogoutConfirmation(false);
   };
 
-console.log('ini user datanya: ' +userData);
   return (
     <div className="relative" ref={dropdownRef}>
       <button onClick={handleProfileClick} className="rounded-full w-10 h-10 bg-gray-300">
@@ -104,24 +103,5 @@ console.log('ini user datanya: ' +userData);
     </div>
   );
 };
-
-export async function getServerSideProps(context:any) {
-  try {
-    const userData = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`, context.req);
-    console.log('ini user data :' +userData)
-    return {
-      props: {
-        userData: userData.data,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching user data', error);
-    return {
-      props: {
-        userData: null,
-      },
-    };
-  }
-}
 
 export default ProfileButton;

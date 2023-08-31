@@ -2,14 +2,16 @@ export async function fetchData(url: string) {
     const res = await fetch(url);
     return res.json();
   }
-  
   export async function fetchWithToken(url: string, options: RequestInit = {}) {
-    const cookies = document.cookie;
+    const token = getAccessTokenFromCookie();
+    if (!token) {
+      throw new Error('Access token not found in cookie');
+    }
+  
     const headers = {
       ...options.headers,
-      Cookie: cookies,
+      Authorization: `Bearer ${token}`,
     };
-    console.log(' ini header '+ headers)
   
     const response = await fetch(url, {
       ...options,
@@ -23,6 +25,14 @@ export async function fetchData(url: string) {
   
     const data = await response.json();
     return data;
+  }
+  
+  function getAccessTokenFromCookie() {
+    const cookie = document.cookie.split('; ').find(cookie => cookie.startsWith('access_token='));
+    if (cookie) {
+      return cookie.split('=')[1];
+    }
+    return null;
   }
   
   

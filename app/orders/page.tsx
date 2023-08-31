@@ -6,6 +6,8 @@ import { FaShoppingCart, FaTrash } from 'react-icons/fa';
 import Image from 'next/image';
 import ErrorMessage from '../../components/modals/errorMessage';
 import SuccessModal from '../../components/modals/successModal';
+import NavbarLayout from '../navbarLayout';
+import FooterLayout from '../footerLayout';
 
 interface OrderItem {
   orderId: number;
@@ -73,6 +75,8 @@ const CartPage: React.FC = () => {
     );
 
   return (
+    <>
+    <NavbarLayout />
     <div className="bg-gray-100 flex justify-center items-center p-4">
     <div className="max-w-4xl w-full p-2 rounded-lg">
       <h1 className="text-2xl font-semibold mb-4 text-gray-700"> Your cart</h1>
@@ -115,6 +119,8 @@ const CartPage: React.FC = () => {
       </div>
     </div>
     </div>
+    <FooterLayout />
+    </>
   );
 };
 
