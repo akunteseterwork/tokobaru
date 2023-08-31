@@ -8,6 +8,7 @@ const useAuth = (): boolean => {
 
   useEffect(() => {
     const verifyAccessToken = () => {
+      console.log('apakah cookies ada: ' +cookies.access_token)
       if (cookies.access_token) {
         const decodedToken = jwtDecode(cookies.access_token) as JwtPayload;
         const currentTime = Math.floor(Date.now() / 1000);
