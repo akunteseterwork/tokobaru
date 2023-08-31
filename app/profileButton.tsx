@@ -29,6 +29,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout }) => {
     const fetchUserData = async () => {
       try {
         const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
+        console.log(data)
         setUserData(data.data);
       } catch (error) {
         console.error('Error fetching user data', error);
