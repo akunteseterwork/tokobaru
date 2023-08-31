@@ -9,6 +9,7 @@ export async function fetchData(url: string) {
       ...options.headers,
       Cookie: cookies,
     };
+    console.log(' ini header '+ headers)
   
     const response = await fetch(url, {
       ...options,
