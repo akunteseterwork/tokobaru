@@ -8,6 +8,7 @@ const nextConfig = {
         pathname: '/v1/uploads/**',
       },
     ],
+    unoptimized: true,
   },
 }
 
