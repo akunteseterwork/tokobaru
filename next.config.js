@@ -1,11 +1,11 @@
 const nextConfig = {
-  //output: 'export',
+  output: 'export',
   images: {
     remotePatterns: [
       {
-        protocol: 'http',
-        hostname: 'localhost',
-        pathname: '/uploads/**',
+        protocol: 'https',
+        hostname: 'tokobaru.alwaysdata.net',
+        pathname: '/v1/uploads/**',
       },
     ],
   },
