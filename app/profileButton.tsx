@@ -8,7 +8,7 @@ import ConfirmModal from '../components/modals/confirmModal';
 
 interface ProfileButtonProps {
   onLogout: () => void;
-  userData: UserData;
+  userData: UserData | null;
 }
 
 interface UserData {
