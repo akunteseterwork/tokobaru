@@ -31,6 +31,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         document.cookie = `access_token=${access_token}; path=/`;
         router.push('/');
         onClose();
+        window.location.reload();
       } else {
         const data = await response.json();
         setError(data.message || 'Login failed');

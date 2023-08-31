@@ -1,9 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaListAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-import { fetchWithToken } from '../utils/fetcher';
 import Image from 'next/image';
 import ConfirmModal from '../components/modals/confirmModal';
+import Link from 'next/link';
+
 
 interface ProfileButtonProps {
   onLogout: () => void;
@@ -74,14 +75,12 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
       {showDropdown && (
         <div className="absolute top-12 right-0 bg-white rounded-2xl shadow-md z-50 w-36">
           <ul className="py-2 shadow-md">
+    <Link href="/profile">
     <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
       <FaUser className="mr-2 text-sm text-gray-600" />
       My Profile
     </li>
-    <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
-      <FaListAlt className="mr-2 text-sm text-gray-600" />
-      My Products
-    </li>
+    </Link>
     <li
       onClick={handleLogoutClick}
       className="flex text-sm items-center px-4 py-2 hover:text-red-800 hover:font-semibold cursor-pointer text-red-500"

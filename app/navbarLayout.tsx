@@ -7,6 +7,7 @@ import LoginModal from '@/components/modals/loginModal';
 import RegisterModal from '@/components/modals/registerModal';
 import ConfirmModal from '../components/modals/confirmModal';
 import ConfirmRegisterModal from '../components/modals/confirmRegisterModal';
+const { useRouter } = require('next/navigation');
 
 interface UserData {
     id: number;
@@ -23,6 +24,7 @@ export default function NavbarLayout() {
     const [showRegisterModal, setShowRegisterModal] = useState(false);
     const [showConfirmLogoutModal, setShowConfirmLogoutModal] = useState(false);
     const [showSuccessRegisterModal, setShowSuccessRegisterModal] = useState(false);
+    const route = useRouter();
 
     useEffect(() => {
         const checkAuthentication = async () => {
@@ -52,16 +54,9 @@ export default function NavbarLayout() {
     };
 
     const handleConfirmLogout = async () => {
-        try {
-            await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/logout`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            });
-        } catch (error) {
-            console.error('Logout failed', error);
-        }
+        document.cookie = 'access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+        route.push('/');
+        window.location.reload();
     };
 
     const handleCancelConfirmLogout = () => {
