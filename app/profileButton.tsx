@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useEffect, useRef } from 'react';
 import { FaListAlt, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
