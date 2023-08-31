@@ -8,14 +8,14 @@ export async function fetchData(url: string) {
       ...options,
       credentials: 'include'
     });
-    console.log('log from response fetchwithtoken :'+ response)
+    console.log('log from response fetchwithtoken :'+ JSON.stringify(response))
   
     if (!response.ok) {
       throw new Error(`Request failed with status ${response.status}`);
     }
   
     const data = await response.json();
-    console.log('log from data fetchwithtoken :'+ data)
+    console.log('log from data fetchwithtoken :'+ JSON.stringify(data))
     return data;
   }
   
