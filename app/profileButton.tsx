@@ -69,7 +69,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout }) => {
   const handleCancelLogout = () => {
     setShowLogoutConfirmation(false);
   };
-
+console.log('ini user datanya: ' +userData);
   return (
     <div className="relative" ref={dropdownRef}>
       <button onClick={handleProfileClick} className="rounded-full w-10 h-10 bg-gray-300">
