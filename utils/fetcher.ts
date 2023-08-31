@@ -3,13 +3,19 @@ export async function fetchData(url: string) {
     return res.json();
   }
   
-  export async function fetchWithToken(url: string, options: RequestInit = {}) {
+  export async function fetchWithToken(url: string, options: RequestInit = {}): Promise<any> {
     const cookies = document.cookie;
-    const headers = {
+    const headers: HeadersInit = {
       ...options.headers,
       Cookie: cookies,
     };
-    console.log(' ini header '+ headers)
+  
+    const headersObject = headers as Record<string, string>;
+    const headersString = Object.keys(headersObject)
+      .map(key => `${key}: ${headersObject[key]}`)
+      .join('\n');
+  
+    console.log('Headers:', headersString);
   
     const response = await fetch(url, {
       ...options,
@@ -24,5 +30,6 @@ export async function fetchData(url: string) {
     const data = await response.json();
     return data;
   }
+  
   
   
