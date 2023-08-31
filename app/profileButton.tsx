@@ -8,6 +8,7 @@ import ConfirmModal from '../components/modals/confirmModal';
 
 interface ProfileButtonProps {
   onLogout: () => void;
+  userData: UserData;
 }
 
 interface UserData {
@@ -18,30 +19,11 @@ interface UserData {
   role: string;
 }
 
-const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout }) => {
+const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => {
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLogoutConfirmation, setShowLogoutConfirmation] = useState(false);
-  const [userData, setUserData] = useState<UserData | null>(null);
   const dropdownRef = useRef(null);
   const router = useRouter();
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      try {
-        const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
-        console.log(data)
-        setUserData(data.data);
-      } catch (error) {
-        console.error('Error fetching user data', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-
-  const handleProfileClick = () => {
-    setShowDropdown((prevShowDropdown) => !prevShowDropdown);
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -57,6 +39,10 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout }) => {
     };
   }, []);
 
+  const handleProfileClick = () => {
+    setShowDropdown((prevShowDropdown) => !prevShowDropdown);
+  };
+
   const handleLogoutClick = () => {
     setShowLogoutConfirmation(true);
   };
@@ -69,6 +55,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout }) => {
   const handleCancelLogout = () => {
     setShowLogoutConfirmation(false);
   };
+
 console.log('ini user datanya: ' +userData);
   return (
     <div className="relative" ref={dropdownRef}>
@@ -117,5 +104,24 @@ console.log('ini user datanya: ' +userData);
     </div>
   );
 };
+
+export async function getServerSideProps(context:any) {
+  try {
+    const userData = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`, context.req);
+    console.log('ini user data :' +userData)
+    return {
+      props: {
+        userData: userData.data,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching user data', error);
+    return {
+      props: {
+        userData: null,
+      },
+    };
+  }
+}
 
 export default ProfileButton;
