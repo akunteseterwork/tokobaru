@@ -20,7 +20,6 @@ export default function UserProfile() {
     async function fetchUserProfile() {
       try {
         const response = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
-        console.log(response)
         if (response.code === 200) {
           setUserProfile(response.data);
         } else {
