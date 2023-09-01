@@ -87,6 +87,10 @@ export default function Detail({ data }: DetailProps) {
     }).format(money);
   };
 
+  if (!data) {
+    return <div>Loading...</div>; 
+  }
+
   return (
     <>
     <NavbarLayout />
