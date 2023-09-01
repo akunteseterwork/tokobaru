@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaCheckCircle, FaTimes } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-
 interface SuccessModalProps {
   title: string;
   message: string;

@@ -102,7 +102,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onSuccess }) => 
                         />
                     </div>
 
-                    {error && ( <PopUp title="Error" message={error}/> )}
+                    {error && (<PopUp title="Error" message={error} />)}
                     <div className="flex justify-center">
                         <button type="submit" onClick={handleRegister} className="bg-blue-500 text-white px-4 py-2 rounded-xl">
                             Register

@@ -78,7 +78,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           {error && <p className="text-red-500 mb-3 text-center text-sm">{error}</p>}
           <div className="flex justify-center">
             <button
-              type="submit" 
+              type="submit"
               className="bg-blue-500 text-white px-4 py-2 rounded-xl"
             >
               Log in

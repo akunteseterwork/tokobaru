@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { fetchWithToken } from '../../utils/fetcher';
+import { fetchWithToken } from '@/utils/fetcher';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
 import Image from 'next/image';
-import ErrorMessage from '../../components/modals/errorMessage';
-import SuccessModal from '../../components/modals/successModal';
+import ErrorMessage from '@/components/modals/errorMessage';
+import SuccessModal from '@/components/modals/successModal';
 import NavbarLayout from '../navbarLayout';
 import FooterLayout from '../footerLayout';
 

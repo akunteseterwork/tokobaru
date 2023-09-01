@@ -10,12 +10,10 @@ import FooterLayout from './footerLayout';
 import ProductList from './productList';
 import HeroSection from './heroSection';
 
-
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
   const productsPerPage = 6;
-
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/products?page=${currentPage}&per_page=${productsPerPage}`,
     fetchData
@@ -35,43 +33,43 @@ export default function Home() {
 
   return (
     <>
-    <NavbarLayout />
-    <HeroSection />
-    <div className="bg-gray-100">
-      <div className="lg:pl-100 flex justify-center">
-      <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
-        <ProductList
-          products={data.data.products}
-          currentPage={currentPage}
-          totalPages={totalPages}
-          onPageChange={handlePageChange}
-        />
-      </div>
-      <div className="flex justify-center mt-4">
-        <div className="pagination-container text-sm mb-4">
-          <button
-            className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            onClick={() => handlePageChange(currentPage - 1)}
-            disabled={currentPage === 1}
-          >
-            <FaChevronLeft />
-          </button>
-          <span className="mx-2 text-gray-500">
-            Page {currentPage} of {totalPages}
-          </span>
-          <button
-            className={`text-blue-500 px-2 py-1 rounded ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-              }`}
-            onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === totalPages}
-          >
-            <FaChevronRight />
-          </button>
+      <NavbarLayout />
+      <HeroSection />
+      <div className="bg-gray-100">
+        <div className="lg:pl-100 flex justify-center">
+          <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
+          <ProductList
+            products={data.data.products}
+            currentPage={currentPage}
+            totalPages={totalPages}
+            onPageChange={handlePageChange}
+          />
+        </div>
+        <div className="flex justify-center mt-4">
+          <div className="pagination-container text-sm mb-4">
+            <button
+              className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            >
+              <FaChevronLeft />
+            </button>
+            <span className="mx-2 text-gray-500">
+              Page {currentPage} of {totalPages}
+            </span>
+            <button
+              className={`text-blue-500 px-2 py-1 rounded ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
+                }`}
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
+            >
+              <FaChevronRight />
+            </button>
+          </div>
         </div>
       </div>
-    </div>
-    <FooterLayout />
+      <FooterLayout />
     </>
   );
 }

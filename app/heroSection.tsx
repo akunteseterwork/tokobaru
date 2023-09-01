@@ -7,7 +7,6 @@ import { fetchData } from '@/utils/fetcher';
 const HeroSection: React.FC = React.memo(() => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [isProductVisible, setIsProductVisible] = useState(false);
-
   const { data: productsData } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`,
     fetchData

@@ -2,11 +2,11 @@ import React from 'react';
 import { FaExclamationCircle } from "react-icons/fa";
 
 interface ErrorProps {
-    title: string;
-    message: string;
-  }
+  title: string;
+  message: string;
+}
 
-  const ErrorMessage: React.FC<ErrorProps> = ({ title, message }) => {
+const ErrorMessage: React.FC<ErrorProps> = ({ title, message }) => {
   return (
     <div className="flex flex-col justify-center items-center w-full p-8 mt-6 mb-6">
       <FaExclamationCircle className="text-red-500 text-4xl mb-2" />

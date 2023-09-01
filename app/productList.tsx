@@ -19,11 +19,9 @@ const formatRupiah = (money: number) => {
 function splitIntoGroups(text: string, groupSize: number) {
     const words = text.split(" ");
     const groups = [];
-
     for (let i = 0; i < words.length; i += groupSize) {
         groups.push(words.slice(i, i + groupSize));
     }
-
     return groups;
 }
 
