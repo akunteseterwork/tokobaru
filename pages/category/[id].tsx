@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '@/app/globals.css';
+import useSWR from 'swr';
 import SidebarSection from '@/app/categorySiebar';
 import ProductList from '../../app/productList';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -7,7 +8,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import NavbarLayout from '@/app/navbarLayout';
 import HeroSection from '@/app/heroSection';
 import FooterLayout from '@/app/footerLayout';
-import { fetchHeroSectionData } from '@/utils/fetcher';
+import { fetchData } from '@/utils/fetcher';
 
 interface Product {
   id: number;
@@ -60,12 +61,20 @@ export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }
   };
 };
 
-async function Categories({ data }: CategoriesProps) {
+export default function Categories({ data }: CategoriesProps) {
+
+  const { data: productsData } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`,
+    fetchData
+  );
+  const productsCount = productsData?.data.products.length || 0;
+  const randomProductIndex = Math.floor(Math.random() * productsCount);
+  const heroProductData = productsData?.data.products[randomProductIndex];
+
 
   if (!data) {
     return <div>Loading...</div>;
   }
-  const heroProductData = await fetchHeroSectionData();
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(true);
   const productsPerPage = 6;
@@ -118,4 +127,4 @@ async function Categories({ data }: CategoriesProps) {
   );
 }
 
-module.exports = Categories;
+
