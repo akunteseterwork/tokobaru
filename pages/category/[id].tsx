@@ -60,6 +60,11 @@ export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }
 };
 
 export default function Categories({ data }: CategoriesProps) {
+
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+  
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(true);
   const productsPerPage = 6;
@@ -68,9 +73,6 @@ export default function Categories({ data }: CategoriesProps) {
     setCurrentPage(page);
   };
 
-  if (!data) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <>
