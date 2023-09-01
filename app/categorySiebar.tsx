@@ -19,7 +19,11 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
   };
 
   if (error) return <div>Error loading categories</div>;
-  if (!data) return <div>Loading categories...</div>;
+  if (!data) return (
+    <div className="flex bg-gray-100 justify-center items-center w-full h-screen">
+      <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
+    </div>
+  );
 
   return (
     <div className="bg-gray-100 p-4">
