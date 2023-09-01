@@ -1,46 +1,24 @@
-"use client"
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
-import useSWR from 'swr';
-import { fetchData } from '../utils/fetcher';
+import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
 
-const HeroSection: React.FC = React.memo(() => {
-  const [currentProductIndex, setCurrentProductIndex] = useState(0);
-  const [isProductVisible, setIsProductVisible] = useState(false);
+interface HeroProduct {
+  id: number;
+  name: string;
+  picture: string;
+  description: string;
+}
 
-  const { data: productsData} = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products/`,
-    fetchData
-  );
-  const productsCount = productsData?.data.products.length || 0;
-  const currentDisplayedProduct = productsData?.data.products[currentProductIndex];
+interface HeroSectionProps {
+  currentDisplayedProduct: HeroProduct;
+}
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentProductIndex((prevIndex) => (prevIndex + 1) % productsCount);
-      setIsProductVisible(false);
-    }, 10000);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [productsCount]);
-
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setIsProductVisible(true);
-    }, 80);
-
-    return () => clearTimeout(timeout);
-  }, [currentProductIndex]);
-
+const HeroSection: React.FC<HeroSectionProps> = React.memo(({ currentDisplayedProduct }) => {
   return (
     <div className="flex bg-gray-100 py-4 md:justify-center">
       {currentDisplayedProduct && (
         <div
-          className={`lg:w-2/3 p-4 lg:pb-0 lg:pr-24 lg:pl-24 lg:mr-20 lg:ml-20 ${isProductVisible ? "opacity-100 transition-opacity duration-500" : "opacity-0"
-            }`}
+          className={`lg:w-2/3 p-4 lg:pb-0 lg:pr-24 lg:pl-24 lg:mr-20 lg:ml-20`}
         >
           <div className="relative shadow-image-detail">
             <Image

@@ -7,6 +7,7 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import NavbarLayout from '@/app/navbarLayout';
 import HeroSection from '@/app/heroSection';
 import FooterLayout from '@/app/footerLayout';
+import { fetchHeroSectionData } from '@/utils/fetcher';
 
 interface Product {
   id: number;
@@ -59,12 +60,12 @@ export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }
   };
 };
 
-export default function Categories({ data }: CategoriesProps) {
+async function Categories({ data }: CategoriesProps) {
 
   if (!data) {
     return <div>Loading...</div>;
   }
-  
+  const heroProductData = await fetchHeroSectionData();
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(true);
   const productsPerPage = 6;
@@ -77,7 +78,7 @@ export default function Categories({ data }: CategoriesProps) {
   return (
     <>
     <NavbarLayout />
-    <HeroSection />
+    <HeroSection currentDisplayedProduct={heroProductData}/>
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
         <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
@@ -117,4 +118,4 @@ export default function Categories({ data }: CategoriesProps) {
   );
 }
 
-
+module.exports = Categories;

@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { fetchData } from '@/utils/fetcher';
+import { fetchData, fetchHeroSectionData } from '@/utils/fetcher';
 import SidebarSection from './categorySiebar';
 import ErrorMessage from '@/components/modals/errorMessage';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -10,10 +10,12 @@ import FooterLayout from './footerLayout';
 import ProductList from './productList';
 import HeroSection from './heroSection';
 
-export default function Home() {
+async function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
+  const heroProductData = await fetchHeroSectionData();
   const productsPerPage = 6;
+  
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/products?page=${currentPage}&per_page=${productsPerPage}`,
     fetchData
@@ -34,7 +36,7 @@ export default function Home() {
   return (
     <>
     <NavbarLayout />
-    <HeroSection />
+    <HeroSection currentDisplayedProduct={heroProductData}/>
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
       <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
@@ -73,3 +75,5 @@ export default function Home() {
     </>
   );
 }
+
+module.exports=Home;

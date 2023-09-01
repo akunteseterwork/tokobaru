@@ -35,4 +35,11 @@ export async function fetchData(url: string) {
     return null;
   }
   
+  export const fetchHeroSectionData = async () => {
+    const productsData = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`);
+    const productsCount = productsData?.data.products.length || 0;
+    const randomProductIndex = Math.floor(Math.random() * productsCount);
+    const currentDisplayedProduct = productsData?.data.products[randomProductIndex];
+    return currentDisplayedProduct;
+  };
   
