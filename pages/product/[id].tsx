@@ -22,7 +22,7 @@ interface DetailProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`);
   const data = await res.json();
   
   const paths = data.data.products.map((product: any) => ({
