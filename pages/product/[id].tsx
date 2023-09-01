@@ -31,11 +31,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths: { params: { id: string } }[] = [];
   for (let page = 1; page <= totalPages; page++) {
-    const pageRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?page=${page}`);
-    const pageData = await pageRes.json();
-    pageData.data.products.forEach((product: any) => {
-      paths.push({ params: { id: product.id.toString() } });
-    });
+    paths.push({ params: { id: page.toString() } });
   }
 
   return {
@@ -44,16 +40,25 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
+
 export const getStaticProps: GetStaticProps<DetailProps> = async ({ params }) => {
   const id = params?.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products/${id}`);
   const data = await res.json();
+
+  if (!data.data) {
+    return {
+      notFound: true,
+    };
+  }
+
   return {
     props: {
-      data : data.data
-    }
+      data: data.data,
+    },
   };
 };
+
 
 export default function Detail({ data }: DetailProps) {
   const [quantity, setQuantity] = useState(1);
