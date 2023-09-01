@@ -1,28 +1,17 @@
-import React, { useState, useEffect } from "react";
-import Link from "next/link";
-import Image from "next/image";
+import React, { useEffect, useState } from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import useSWR from 'swr';
+import { fetchData } from '@/utils/fetcher';
 
-interface Product {
-  id: number;
-  name: string;
-  picture: string;
-  description: string;
-}
-
-interface ProductsData {
-  data: {
-    products: Product[];
-  };
-}
-
-interface HeroSectionProps {
-  productsData: ProductsData;
-}
-
-const HeroSection: React.FC<HeroSectionProps> = ({ productsData }) => {
+const HeroSection: React.FC = React.memo(() => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
   const [isProductVisible, setIsProductVisible] = useState(false);
 
+  const { data: productsData } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`,
+    fetchData
+  );
   const productsCount = productsData?.data.products.length || 0;
   const currentDisplayedProduct = productsData?.data.products[currentProductIndex];
 
@@ -90,6 +79,6 @@ const HeroSection: React.FC<HeroSectionProps> = ({ productsData }) => {
       )}
     </div>
   );
-};
+});
 
 export default HeroSection;

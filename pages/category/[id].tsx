@@ -3,11 +3,10 @@ import '@/app/globals.css';
 import SidebarSection from '@/app/categorySiebar';
 import ProductList from '../../app/productList';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { GetStaticProps, GetStaticPaths, GetStaticPropsContext } from 'next';
+import { GetStaticProps, GetStaticPaths } from 'next';
 import NavbarLayout from '@/app/navbarLayout';
 import HeroSection from '@/app/heroSection';
 import FooterLayout from '@/app/footerLayout';
-import { fetchData } from '@/utils/fetcher';
 
 interface Product {
   id: number;
@@ -34,14 +33,9 @@ interface CategoryDetail {
 
 interface CategoriesProps {
   data: CategoryDetail;
-  productsData: ProductsData; // Add this line
 }
 
-interface ProductsData {
-  data: {
-    products: Product[];
-  };
-}
+
 
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
@@ -55,23 +49,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }: GetStaticPropsContext) => {
+export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }) => {
   const id = params?.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
-  const categoryData = await res.json();
-  
-  const productsData = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`);
-  
+  const data = await res.json();
   return {
     props: {
-      data: categoryData.data,
-      productsData,
+      data: data.data,
     },
-    revalidate: 60 * 1,
+    revalidate: 60 * 1
   };
 };
 
-export default function Categories({ data, productsData }: CategoriesProps) {
+export default function Categories({ data }: CategoriesProps) {
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -87,7 +77,7 @@ export default function Categories({ data, productsData }: CategoriesProps) {
   return (
     <>
     <NavbarLayout />
-    <HeroSection productsData={productsData} />
+    <HeroSection />
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
         <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
