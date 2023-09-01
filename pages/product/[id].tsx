@@ -24,12 +24,23 @@ interface DetailProps {
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products`);
   const data = await res.json();
-  const paths = data.data.products.map((product: any) => ({
-    params: { id: product.id.toString() },
-  }));
+  const totalProducts = data.data.total;
+  const productsPerPage = data.data.per_page;
+
+  const totalPages = Math.ceil(totalProducts / productsPerPage);
+
+  const paths: { params: { id: string } }[] = [];
+  for (let page = 1; page <= totalPages; page++) {
+    const pageRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/products?page=${page}`);
+    const pageData = await pageRes.json();
+    pageData.data.products.forEach((product: any) => {
+      paths.push({ params: { id: product.id.toString() } });
+    });
+  }
+
   return {
     paths,
-    fallback: true
+    fallback: true,
   };
 };
 
