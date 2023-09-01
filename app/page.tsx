@@ -9,8 +9,32 @@ import NavbarLayout from './navbarLayout';
 import FooterLayout from './footerLayout';
 import ProductList from './productList';
 import HeroSection from './heroSection';
+import { GetStaticProps } from 'next';
 
-export default function Home() {
+
+interface Product {
+  id: number;
+  name: string;
+  picture: string;
+  description: string;
+}
+interface ProductsData {
+  data: {
+    products: Product[];
+  };
+}
+
+export const getStaticProps: GetStaticProps = async () => {
+  const productsData = await fetchData(`${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`);
+  return {
+    props: {
+      productsData
+    },
+    revalidate: 60 * 1
+  };
+};
+
+export default function Home({ productsData }: { productsData: ProductsData }) {
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
   const productsPerPage = 6;
@@ -35,7 +59,7 @@ export default function Home() {
   return (
     <>
     <NavbarLayout />
-    <HeroSection />
+    <HeroSection productsData={productsData} />
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
       <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
