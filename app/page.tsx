@@ -15,14 +15,6 @@ export default function Home() {
   const [isExpanded, setIsExpanded] = useState(false);
   const productsPerPage = 6;
 
-  const { data: productsData } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`,
-    fetchData
-  );
-  const productsCount = productsData?.data.products.length || 0;
-  const randomProductIndex = Math.floor(Math.random() * productsCount);
-  const heroProductData = productsData?.data.products[randomProductIndex];
-
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/products?page=${currentPage}&per_page=${productsPerPage}`,
     fetchData
@@ -43,7 +35,7 @@ export default function Home() {
   return (
     <>
     <NavbarLayout />
-    <HeroSection currentDisplayedProduct={heroProductData}/>
+    <HeroSection />
     <div className="bg-gray-100">
       <div className="lg:pl-100 flex justify-center">
       <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
