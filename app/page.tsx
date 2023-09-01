@@ -1,7 +1,7 @@
 "use client"
 import React, { useState } from 'react';
 import useSWR from 'swr';
-import { fetchData, fetchHeroSectionData } from '@/utils/fetcher';
+import { fetchData } from '@/utils/fetcher';
 import SidebarSection from './categorySiebar';
 import ErrorMessage from '@/components/modals/errorMessage';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
@@ -10,12 +10,19 @@ import FooterLayout from './footerLayout';
 import ProductList from './productList';
 import HeroSection from './heroSection';
 
-async function Home() {
+export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
-  const heroProductData = await fetchHeroSectionData();
   const productsPerPage = 6;
-  
+
+  const { data: productsData } = useSWR(
+    `${process.env.NEXT_PUBLIC_API_URL}/products?per_page=1000`,
+    fetchData
+  );
+  const productsCount = productsData?.data.products.length || 0;
+  const randomProductIndex = Math.floor(Math.random() * productsCount);
+  const heroProductData = productsData?.data.products[randomProductIndex];
+
   const { data, error } = useSWR(
     `${process.env.NEXT_PUBLIC_API_URL}/products?page=${currentPage}&per_page=${productsPerPage}`,
     fetchData
@@ -75,5 +82,3 @@ async function Home() {
     </>
   );
 }
-
-module.exports=Home;
