@@ -68,6 +68,10 @@ export default function Categories({ data }: CategoriesProps) {
     setCurrentPage(page);
   };
 
+  if (!data) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <>
     <NavbarLayout />
