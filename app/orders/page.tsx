@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { fetchWithToken } from '@/utils/fetcher';
 import { FaShoppingCart, FaTrash, FaChild } from 'react-icons/fa';
@@ -25,6 +25,16 @@ const CartPage: React.FC = () => {
   const { data, error, mutate } = useSWR<{ data: OrderItem[] }>(`${process.env.NEXT_PUBLIC_API_URL}/orders/my`, fetchWithToken);
   const [isModalOpen, setModalOpen] = useState(false);
   const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
   const removeItem = async (orderId: number) => {
     try {
@@ -71,9 +81,9 @@ const CartPage: React.FC = () => {
     return (
       <>
       <NavbarLayout />
-      <div className="flex items-center justify-center mt-6 mb-2">
+      <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'} flex items-center justify-center mt-6 mb-2`}>
       <FaChild className="text-lg text-blue-500 mr-2 mt-4" />
-      <span className={`text-sm mt-4 ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
+      <span className={`text-sm mt-4 ${theme === 'dark' ? 'text-gray-200' : 'text-zinc-700'}`}>
       No order here, please add product
       </span>
       </div>
@@ -82,8 +92,11 @@ const CartPage: React.FC = () => {
     );
   if (error) return (
     <>
+    <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
       <NavbarLayout />
-      <ErrorMessage title="Error Loading Order" message="Or your have no orders. Please order a product" />;
+      <div className={`${theme === 'dark' ? 'text-gray-200' : 'text-zinc-700'}`}/>
+      <ErrorMessage title="Error Loading Order" message="Or your have no orders. Please order a product"/>
+      </div>
       <FooterLayout />
     </>
   );
