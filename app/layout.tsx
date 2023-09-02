@@ -28,7 +28,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           content="Ecommerce website built with NextJS 13 for testing purpose."
         />
       </head>
-      <body className="font-inter">
+      <body className={`${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-100'}`}>
         <ThemeProvider attribute="class" defaultTheme="light">
           <ThemeSwitcher />
           {children}
