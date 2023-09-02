@@ -1,9 +1,21 @@
+"use client"
 import "./globals.css";
-import React from 'react';
+import React , { useEffect } from 'react';
 import { ThemeProvider } from "@/app/themeProvider";
 import { ThemeSwitcher } from "@/app/themeSwitcher";
-
+import { useTheme } from "next-themes";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
   return (
     <html lang="en">
@@ -18,7 +30,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           content="Ecommerce website built with NextJS 13 for testing purpose."
         />
       </head>
-      <body className="light:bg-gray-100 dark:bg-zinc-800 font-inter">
+      <body className="font-inter">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ThemeSwitcher />
           {children}
