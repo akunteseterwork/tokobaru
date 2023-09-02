@@ -109,6 +109,7 @@ export default function Categories({ data }: CategoriesProps) {
               <FaChevronRight />
             </button>
           </div>
+          
         </div>
       </div>
       <FooterLayout />
