@@ -48,7 +48,7 @@ export default function UserProfile() {
   return (
     <NoSSR>
       <NavbarLayout />
-      <div className={`bg-${theme === 'dark' ? 'black' : 'gray-100'} flex justify-center items-center p-8`}>
+      <div className={`${theme === 'dark' ? 'black' : 'gray-100'} flex justify-center items-center p-8`}>
         <div className={`max-w-4xl w-full p-2 rounded-lg ${theme === 'dark' ? 'bg-zinc-800 text-gray-200' : ''}`}>
           {userProfile ? (
             <div className="flex flex-col items-center">

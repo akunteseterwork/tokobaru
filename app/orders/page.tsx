@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import { fetchWithToken } from '@/utils/fetcher';
 import { FaShoppingCart, FaTrash } from 'react-icons/fa';
@@ -25,16 +25,6 @@ const CartPage: React.FC = () => {
   const { data, error, mutate } = useSWR<{ data: OrderItem[] }>(`${process.env.NEXT_PUBLIC_API_URL}/orders/my`, fetchWithToken);
   const [isModalOpen, setModalOpen] = useState(false);
   const { theme } = useTheme();
-
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.body.classList.remove('bg-gray-100');
-      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
-    } else {
-      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
-      document.body.classList.add('bg-gray-100');
-    }
-  }, [theme]);
 
   const removeItem = async (orderId: number) => {
     try {
@@ -78,7 +68,12 @@ const CartPage: React.FC = () => {
       minimumFractionDigits: 0,
     }).format(money);
   };
-
+  if (!data)
+    return (
+      <div className={`flex justify-center items-center w-full h-screen ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
+      </div>
+    );
   if (error) return (
     <>
       <NavbarLayout />

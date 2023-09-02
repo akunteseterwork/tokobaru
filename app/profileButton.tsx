@@ -74,6 +74,13 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
     window.location.href = "/";
   };
 
+  if (!userData)
+    return (
+      <div className={`flex justify-center items-center w-full h-screen ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
+      </div>
+    );
+
   return (
     <div className="relative" ref={dropdownRef}>
       <button onClick={handleProfileClick} className={`rounded-full w-10 h-10 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-300'}`}>

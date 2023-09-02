@@ -30,6 +30,12 @@ function splitIntoGroups(text: string, groupSize: number) {
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
     const { theme } = useTheme();
+    if (!products)
+    return (
+      <div className={`flex justify-center items-center w-full h-screen ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
+      </div>
+    );
     return (
         <NoSSR>
         <div className={`grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-1 ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>

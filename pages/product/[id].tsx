@@ -105,7 +105,9 @@ export default function Detail({ data }: DetailProps) {
       document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
       document.body.classList.add('bg-gray-100');
     }
+  }, [theme]);
 
+  useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
@@ -119,8 +121,7 @@ export default function Detail({ data }: DetailProps) {
       }
     };
     checkAuthentication();
-    
-  }, [theme]);
+  },[]);
 
   return (
     <NoSSR>
@@ -169,7 +170,7 @@ export default function Detail({ data }: DetailProps) {
                 {isAuthenticationChecked && (
                   <button className="bg-blue-500 text-gray-200 px-4 py-2 rounded-md w-full flex justify-center items-center" onClick={handleAddToCart}>
                     <FaShoppingCart className="mr-2" />
-                    Checkout
+                    Add to Cart
                   </button>
                 )}
                 <div className="mt-4 text-sm">
