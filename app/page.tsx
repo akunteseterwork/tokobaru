@@ -1,3 +1,4 @@
+
 "use client"
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
@@ -58,7 +59,7 @@ export default function Home() {
           onPageChange={handlePageChange}
         />
       </div>
-      <div className={`flex justify-center mr-10 mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className={`flex justify-center mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <div className="pagination-container text-sm mb-4">
           <button
             className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""

@@ -19,7 +19,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 content="Ecommerce website built with NextJS 13 for testing purpose."
             />
         </Head>
-        <ThemeProvider attribute="class" enableSystem>
+        <ThemeProvider attribute="class" defaultTheme="light">
             <ThemeSwitcher />
             <Component {...pageProps} />
         </ThemeProvider>
