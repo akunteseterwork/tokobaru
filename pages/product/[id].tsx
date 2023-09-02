@@ -8,7 +8,7 @@ import NavbarLayout from '@/app/navbarLayout';
 import FooterLayout from '@/app/footerLayout';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
-
+import PopUp from '@/components/modals/popUpModal';
 interface ProductDetail {
   id: number;
   name: string;
@@ -52,7 +52,7 @@ export const getStaticProps: GetStaticProps<DetailProps> = async ({ params }) =>
 export default function Detail({ data }: DetailProps) {
   const [quantity, setQuantity] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
-  const [isAuthenticationChecked, setIsAuthenticationChecked] = useState(false);
+  const [error, setError] = useState('');
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -76,7 +76,7 @@ export default function Detail({ data }: DetailProps) {
 
       setModalOpen(true);
     } catch (error) {
-      console.error(error);
+      setError('You need to login first');
     }
   };
 
@@ -106,22 +106,6 @@ export default function Detail({ data }: DetailProps) {
       document.body.classList.add('bg-gray-100');
     }
   }, [theme]);
-
-  useEffect(() => {
-    const checkAuthentication = async () => {
-      try {
-        const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
-        if (data) {
-          setIsAuthenticationChecked(true);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setIsAuthenticationChecked(true);
-      }
-    };
-    checkAuthentication();
-  },[])
 
   return (
     <NoSSR>
@@ -167,12 +151,11 @@ export default function Detail({ data }: DetailProps) {
                     <FaPlus />
                   </button>
                 </div>
-                {isAuthenticationChecked && (
-                  <button className="bg-blue-500 text-gray-200 px-4 py-2 rounded-md w-full flex justify-center items-center" onClick={handleAddToCart}>
-                    <FaShoppingCart className="mr-2" />
-                    Add to Cart
-                  </button>
-                )}
+                <button className="mt-4 bg-blue-500 text-gray-200 px-4 py-2 rounded-md flex items-center" onClick={handleAddToCart}>
+                  <FaShoppingCart className="mr-2" />
+                  Add to Cart
+                </button>
+                {error && (<PopUp title="Error, duhh" message={error} />)}
                 <div className="mt-4 text-sm">
                   <p className={`text-${theme === 'dark' ? 'gray-300' : 'gray-700'}`}>{data.description}</p>
                 </div>
