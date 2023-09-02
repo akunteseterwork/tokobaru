@@ -115,7 +115,7 @@ const CartPage: React.FC = () => {
                   <p className={`${theme === 'dark' ? 'text-gray-200' : ''}`}>Total:</p>
                   <p className={`font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{formatRupiah(data?.data?.reduce((total, item) => total + item.totalPrice, 0) || 0)}</p>
                 </div>
-                <button className="bg-blue-500 text-gray-200 px-4 py-2 rounded-md w-full flex  justify-center items-center" onClick={handleCheckout}>
+                <button className="bg-blue-500 text-gray-100 px-4 py-2 rounded-md w-full flex  justify-center items-center" onClick={handleCheckout}>
                   <FaShoppingCart className="mr-2" />
                   Checkout
                 </button>

@@ -108,7 +108,7 @@ const RegisterModal: React.FC<RegisterModalProps> = ({ onClose, onSuccess }) => 
 
                     {error && (<PopUp title="Error" message={error} />)}
                     <div className="flex justify-center">
-                        <button type="submit" onClick={handleRegister} className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}>
+                        <button type="submit" onClick={handleRegister} className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}>
                             Register
                         </button>
                     </div>

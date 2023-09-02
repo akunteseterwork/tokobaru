@@ -35,7 +35,7 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
             {message}
           </p>
           <div className="flex justify-center">
-            <button className={`bg-blue-500 text-gray-50 px-4 py-2 rounded-md w-full flex  justify-center items-center text-sm ${theme === 'dark' ? 'dark:bg-blue-800' : 'dark:bg-blue-500'}`} onClick={handleGoToCart}>
+            <button className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-md w-full flex  justify-center items-center text-sm ${theme === 'dark' ? 'dark:bg-blue-800' : 'dark:bg-blue-500'}`} onClick={handleGoToCart}>
               <FaShoppingCart className="mr-2" />
               Go to Cart
             </button>

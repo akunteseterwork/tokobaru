@@ -143,7 +143,7 @@ const EditProductModal: React.FC<EditProductModalProps> = ({ onClose, onSuccess,
           </div>
           {error && (<PopUp title="Error" message={error} />)}
           <div className="flex justify-center">
-            <button type="submit" onClick={handleEditProduct} className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
+            <button type="submit" onClick={handleEditProduct} className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
               Edit Product
             </button>
           </div>

@@ -8,7 +8,6 @@ import NavbarLayout from '@/app/navbarLayout';
 import FooterLayout from '@/app/footerLayout';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
-import PopUp from '@/components/modals/popUpModal';
 interface ProductDetail {
   id: number;
   name: string;
@@ -53,6 +52,21 @@ export default function Detail({ data }: DetailProps) {
   const [quantity, setQuantity] = useState(1);
   const [modalOpen, setModalOpen] = useState(false);
   const [error, setError] = useState('');
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    const checkAuthentication = async () => {
+      try {
+        const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
+        if (data) {
+          setIsAuthenticated(true);
+        }
+      } catch (error) {
+        setIsAuthenticated(false);
+      }
+    };
+    checkAuthentication();
+  }, []);
 
   const handleIncrement = () => {
     setQuantity(quantity + 1);
@@ -127,35 +141,45 @@ export default function Detail({ data }: DetailProps) {
                 <h1 className={`text-2xl font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{data.name}</h1>
                 <p className={theme === 'dark' ? 'text-gray-200' : ''}>{formatRupiah(data.price)}</p>
                 <p className={`mt-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>In Stock: {data.stock}</p>
-                <div className="mt-4 flex items-center">
+                {isAuthenticated && (
+                  <div className="mt-4 flex items-center">
+                    <button
+                      onClick={handleDecrement}
+                      className="text-red-600"
+                    >
+                      <FaMinus />
+                    </button>
+                    <input
+                      type="text"
+                      value={quantity}
+                      onChange={(e) => {
+                        const inputValue = parseInt(e.target.value);
+                        if (!isNaN(inputValue)) {
+                          setQuantity(Math.max(inputValue, 1));
+                        }
+                      }}
+                      className={`w-12 text-center mx-2 border-zinc-300 rounded ${theme === 'dark' ? 'bg-zinc-900 text-gray-100' : 'bg-gray-100 text-gray-800'}`} />
+                    <button
+                      onClick={handleIncrement}
+                      className="text-green-600"
+                    >
+                      <FaPlus />
+                    </button>
+                  </div>
+                )}
+
+                {isAuthenticated ? (
                   <button
-                    onClick={handleDecrement}
-                    className="text-red-600"
+                    className="mt-4 bg-blue-500 text-gray-100 px-4 py-2 rounded-md flex items-center"
+                    onClick={handleAddToCart}
                   >
-                    <FaMinus />
+                    <FaShoppingCart className="mr-2" />
+                    Add to Cart
                   </button>
-                  <input
-                    type="text"
-                    value={quantity}
-                    onChange={(e) => {
-                      const inputValue = parseInt(e.target.value);
-                      if (!isNaN(inputValue)) {
-                        setQuantity(Math.max(inputValue, 1));
-                      }
-                    }}
-                    className={`w-12 text-center mx-2 border-zinc-300 rounded ${theme === 'dark' ? 'bg-zinc-900 text-gray-100' : 'bg-gray-100 text-gray-800'}`} />
-                  <button
-                    onClick={handleIncrement}
-                    className="text-green-600"
-                  >
-                    <FaPlus />
-                  </button>
-                </div>
-                <button className="mt-4 bg-blue-500 text-gray-200 px-4 py-2 rounded-md flex items-center" onClick={handleAddToCart}>
-                  <FaShoppingCart className="mr-2" />
-                  Add to Cart
-                </button>
-                {error && (<PopUp title="Error, duhh" message={error} />)}
+                ) : (
+                  <p className="mt-4 text-sm text-red-500">Login to add to cart</p>
+                )}
+
                 <div className="mt-4 text-sm">
                   <p className={`text-${theme === 'dark' ? 'gray-300' : 'gray-700'}`}>{data.description}</p>
                 </div>

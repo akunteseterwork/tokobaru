@@ -24,6 +24,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
   const [picture, setPicture] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -50,6 +51,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
     event.preventDefault();
     setError('');
     setSuccessMessage('');
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append('categoryId', categoryId);
@@ -69,12 +71,14 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
         setSuccessMessage('Product added successfully!');
         onClose();
         onSuccess();
+        setLoading(false);
       } else {
         setError(response.data.message || 'Product add failed');
       }
     } catch (error) {
       console.log(error)
-      setError('An error occurred while adding the product');
+      setError('All fields are required');
+      setLoading(false);
     }
   };
 
@@ -165,11 +169,17 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
               />
             </div>
             {error && (<PopUp title="Error" message={error} />)}
-            <div className="flex justify-center">
-              <button type="submit" onClick={handleAddProduct} className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
-                Add Product
-              </button>
-            </div>
+            {loading ? (
+              <div className="flex justify-center mt-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
+              </div>
+            ) : (
+              <div className="flex justify-center">
+                <button type="submit" onClick={handleAddProduct} className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
+                  Add Product
+                </button>
+              </div>
+            )}
           </form>
         </div>
       </div>

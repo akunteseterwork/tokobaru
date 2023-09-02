@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Link from 'next/link';
 import ProfileButton from './profileButton';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaShoppingCart, FaStore } from 'react-icons/fa';
 import { fetchWithToken } from '@/utils/fetcher';
 import LoginModal from '@/components/modals/loginModal';
 import RegisterModal from '@/components/modals/registerModal';
@@ -33,7 +33,7 @@ export default function NavbarLayout() {
         const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
         setUserData(data.data);
       } catch (error) {
-        console.error(error);
+        return;
       } finally {
         setIsAuthenticationChecked(true);
       }
@@ -49,7 +49,7 @@ export default function NavbarLayout() {
         const count = Array.isArray(orderData) ? orderData.reduce((total, item) => total + item.amount, 0) : 0;
         setOrderCount(count);
       } catch (error) {
-        console.error(error);
+          return;
       }
     };
     fetchOrderCount();
@@ -95,10 +95,12 @@ export default function NavbarLayout() {
   };
 
   return (
-    <nav className={`py-1 ${theme === 'dark' ? 'bg-[#212121] text-gray-200' : 'bg-gray-50 text-gray-700'}`}>
+    <nav className={`${theme === 'dark' ? 'bg-[#212121] text-gray-200' : 'bg-gray-50 text-gray-700'}`}>
       <div className="max-w-4xl mx-auto flex justify-between items-center px-4">
         <Link href="/">
-          <span className={`text-xl font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>Tokobaru</span>
+          <span className={`text-md font-semibold flex items-center ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
+            <FaStore className="mr-2" /> Tokobaru
+          </span>
         </Link>
         <div className="p-2">
           <div className="flex items-center space-x-4">

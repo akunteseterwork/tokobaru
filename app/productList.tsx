@@ -51,7 +51,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                             in stock: {product.stock}
                         </div>
                     </div>
-                    <h2 className="text-smfont-semibold mt-3">
+                    <h2 className="text-sm font-semibold mt-3">
                         {splitIntoGroups(product.name, 3).map((group, index) => (
                             <div key={index}>{group.join(" ")}</div>
                         ))}

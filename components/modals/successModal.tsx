@@ -33,7 +33,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ title, message, onClose }) 
           </p>
           <div className="flex justify-center">
             <button
-              className={`bg-blue-500 text-gray-200 px-4 py-2 text-sm rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}
+              className={`bg-blue-500 text-gray-100 px-4 py-2 text-sm rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}
               onClick={handleReturnToHomepage}
             >
               Return to Homepage

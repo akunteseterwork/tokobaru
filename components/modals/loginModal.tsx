@@ -83,7 +83,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
           <div className="flex justify-center">
             <button
               type="submit"
-              className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}
+              className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}
             >
               Log in
             </button>
