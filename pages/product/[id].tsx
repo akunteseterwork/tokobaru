@@ -115,11 +115,13 @@ export default function Detail({ data }: DetailProps) {
           setIsAuthenticationChecked(true);
         }
       } catch (error) {
-        setIsAuthenticationChecked(false)
+        console.error(error);
+      } finally {
+        setIsAuthenticationChecked(true);
       }
     };
     checkAuthentication();
-  },[]);
+  },[])
 
   return (
     <NoSSR>
@@ -141,7 +143,7 @@ export default function Detail({ data }: DetailProps) {
                 <h1 className={`text-2xl font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{data.name}</h1>
                 <p className={theme === 'dark' ? 'text-gray-200' : ''}>{formatRupiah(data.price)}</p>
                 <p className={`mt-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>In Stock: {data.stock}</p>
-                <div className="mt-4 flex items-center mb-4">
+                <div className="mt-4 flex items-center">
                   <button
                     onClick={handleDecrement}
                     className="text-red-600"

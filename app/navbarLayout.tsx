@@ -33,8 +33,10 @@ export default function NavbarLayout() {
         const data = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
         setUserData(data.data);
       } catch (error) {
-        setIsAuthenticationChecked(false);
-      } 
+        console.error(error);
+      } finally {
+        setIsAuthenticationChecked(true);
+      }
     };
     checkAuthentication();
   }, []);
