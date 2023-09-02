@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@/app/globals.css';
 import SidebarSection from '@/app/categorySiebar';
 import ProductList from '@/app/productList';
@@ -75,12 +75,22 @@ export default function Categories({ data }: CategoriesProps) {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
   return (
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
-        <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
+        <div className={`lg:pl-100 flex justify-center${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
           <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           <ProductList
             products={data.products}
@@ -89,7 +99,7 @@ export default function Categories({ data }: CategoriesProps) {
             onPageChange={handlePageChange}
           />
         </div>
-        <div className={`flex justify-center mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className="flex justify-center mt-4">
           <div className={`pagination-container text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
             <button
               className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -110,6 +120,7 @@ export default function Categories({ data }: CategoriesProps) {
             </button>
           </div>
         </div>
+      </div>
       <FooterLayout />
     </NoSSR>
   );

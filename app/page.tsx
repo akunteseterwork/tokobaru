@@ -1,5 +1,5 @@
 "use client"
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { fetchData } from '@/utils/fetcher';
 import SidebarSection from './categorySiebar';
@@ -26,6 +26,16 @@ export default function Home() {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
+
   if (error) return <ErrorMessage title="Error Loading Data" message="Unable to fetch data. Please try again later." />;
   if (!data)
     return (
@@ -38,7 +48,8 @@ export default function Home() {
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
-      <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
+        <div className={`lg:pl-100 flex justify-center${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <ProductList
           products={data.data.products}
@@ -69,6 +80,7 @@ export default function Home() {
             <FaChevronRight />
           </button>
         </div>
+      </div>
       </div>
       <FooterLayout />
     </NoSSR>
