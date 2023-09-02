@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 
 interface ProductListProps {
     products: any[];
@@ -30,6 +31,7 @@ function splitIntoGroups(text: string, groupSize: number) {
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
     const { theme } = useTheme();
     return (
+        <NoSSR>
         <div className={`grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-1 ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
             {products.map((product: any) => (
                 <div key={product.id} className="p-3 relative">
@@ -53,6 +55,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                 </div>
             ))}
         </div>
+        </NoSSR>
     );
 };
 
