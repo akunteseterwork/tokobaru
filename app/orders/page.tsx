@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import useSWR from 'swr';
 import { fetchWithToken } from '@/utils/fetcher';
-import { FaShoppingCart, FaTrash } from 'react-icons/fa';
+import { FaShoppingCart, FaTrash, FaChild } from 'react-icons/fa';
 import Image from 'next/image';
 import ErrorMessage from '@/components/modals/errorMessage';
 import SuccessModal from '@/components/modals/successModal';
@@ -33,7 +33,7 @@ const CartPage: React.FC = () => {
       });
       mutate();
     } catch (error) {
-      console.error(error);
+      return;
     }
   };
 
@@ -42,7 +42,6 @@ const CartPage: React.FC = () => {
       const orderIdsToProcess = data?.data?.map(item => item.orderId);
 
       if (!orderIdsToProcess || orderIdsToProcess.length === 0) {
-        console.log("No orders to process.");
         return;
       }
 
@@ -56,7 +55,7 @@ const CartPage: React.FC = () => {
 
       setModalOpen(true);
     } catch (error) {
-      console.error(error);
+      return;
     }
   };
 
@@ -70,9 +69,14 @@ const CartPage: React.FC = () => {
   };
   if (!data)
     return (
-      <div className={`flex justify-center items-center w-full h-screen ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
-        <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
-      </div>
+      <>
+      <NavbarLayout />
+      <span className={`text-md font-semibold flex items-center ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
+      <FaChild className="text-md mr-2" />;
+      No order here, please add product
+          </span>
+      <FooterLayout />
+    </>
     );
   if (error) return (
     <>

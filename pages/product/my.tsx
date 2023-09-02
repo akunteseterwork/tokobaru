@@ -81,7 +81,7 @@ const UserProductPage: React.FC = () => {
       });
       mutate();
     } catch (error) {
-      console.error(error);
+      return;
     }
     setShowDeleteConfirmation(false);
   };

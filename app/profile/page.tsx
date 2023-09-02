@@ -35,10 +35,10 @@ export default function UserProfile() {
         if (response.code === 200) {
           setUserProfile(response.data);
         } else {
-          console.error('Failed to fetch user profile');
+          return;
         }
       } catch (error) {
-        console.error('Error fetching user profile:', error);
+        return;
       }
     }
 
@@ -71,7 +71,9 @@ export default function UserProfile() {
               </div>
             </div>
           ) : (
-            <p>Loading user profile...</p>
+            <div className="flex justify-center mt-4">
+                <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500" />
+              </div>
           )}
         </div>
       </div>

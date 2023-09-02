@@ -140,7 +140,7 @@ export default function Detail({ data }: DetailProps) {
               <div className="w-full md:w-6/12">
                 <h1 className={`text-2xl font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{data.name}</h1>
                 <p className={theme === 'dark' ? 'text-gray-200' : ''}>{formatRupiah(data.price)}</p>
-                <p className={`mt-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>In Stock: {data.stock}</p>
+                <p className={`mt-2 text-xs ${theme === 'dark' ? 'text-gray-200' : ''}`}>In Stock: {data.stock}</p>
                 {isAuthenticated && (
                   <div className="mt-4 flex items-center">
                     <button

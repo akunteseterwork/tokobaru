@@ -40,7 +40,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
         } else {
         }
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        return;
       }
     }
 
@@ -76,7 +76,6 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
         setError(response.data.message || 'Product add failed');
       }
     } catch (error) {
-      console.log(error)
       setError('All fields are required');
       setLoading(false);
     }
