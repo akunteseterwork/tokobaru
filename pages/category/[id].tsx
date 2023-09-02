@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from 'react';
-import '@/app/globals.css';
+import React, { useState } from 'react';
 import SidebarSection from '@/app/categorySiebar';
 import ProductList from '@/app/productList';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -75,22 +74,13 @@ export default function Categories({ data }: CategoriesProps) {
     setCurrentPage(page);
   };
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.body.classList.remove('bg-gray-100');
-      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
-    } else {
-      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
-      document.body.classList.add('bg-gray-100');
-    }
-  }, [theme]);
 
   return (
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
       <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
-        <div className={`lg:pl-100 flex justify-center${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <div className="lg:pl-100 flex justify-center">
           <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           <ProductList
             products={data.products}

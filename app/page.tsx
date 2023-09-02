@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import useSWR from 'swr';
 import { fetchData } from '@/utils/fetcher';
 import SidebarSection from './categorySiebar';
@@ -11,6 +11,7 @@ import ProductList from './productList';
 import HeroSection from './heroSection';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
+
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,16 +27,6 @@ export default function Home() {
     setCurrentPage(page);
   };
 
-  useEffect(() => {
-    if (theme === 'dark') {
-      document.body.classList.remove('bg-gray-100');
-      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
-    } else {
-      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
-      document.body.classList.add('bg-gray-100');
-    }
-  }, [theme]);
-
   if (error) return <ErrorMessage title="Error Loading Data" message="Unable to fetch data. Please try again later." />;
   if (!data)
     return (
@@ -48,8 +39,7 @@ export default function Home() {
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
-      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
-        <div className={`lg:pl-100 flex justify-center${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
         <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <ProductList
           products={data.data.products}
@@ -58,7 +48,7 @@ export default function Home() {
           onPageChange={handlePageChange}
         />
       </div>
-      <div className={`flex justify-center mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className="flex justify-center mt-4">
         <div className="pagination-container text-sm mb-4">
           <button
             className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
@@ -80,7 +70,6 @@ export default function Home() {
             <FaChevronRight />
           </button>
         </div>
-      </div>
       </div>
       <FooterLayout />
     </NoSSR>

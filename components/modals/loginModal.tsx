@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import NoSSR from '../noSSR';
+
 interface LoginModalProps {
   onClose: () => void;
 }
@@ -43,6 +45,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   };
 
   return (
+    <NoSSR>
     <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-800'} backdrop-blur z-50`}>
       <div className={`bg-white dark:bg-zinc-800 p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700`}>
         <button
@@ -88,6 +91,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
         </form>
       </div>
     </div>
+    </NoSSR>
   );
 };
 

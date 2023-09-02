@@ -4,7 +4,6 @@ import { fetchData } from "@/utils/fetcher";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useTheme } from 'next-themes';
-import NoSSR from "@/components/noSSR";
 
 const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boolean) => void }> = ({ isExpanded, setIsExpanded }) => {
   const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/categories`, fetchData);
@@ -25,7 +24,7 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
   if (!data) return <div>Loading categories...</div>;
 
   return (
-    <NoSSR>
+    <div>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className={`flex items-center mb-4 text-xl text-${theme === 'dark' ? 'white' : 'gray-800'} font-semibold`}
@@ -64,7 +63,7 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
           ))}
         </div>
       )}
-    </NoSSR>
+    </div>
   );
 };
 

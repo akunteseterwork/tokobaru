@@ -2,6 +2,8 @@ import React from 'react';
 import { FaCheckCircle, FaTimes } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import NoSSR from '../noSSR';
+
 interface SuccessModalProps {
   title: string;
   message: string;
@@ -16,6 +18,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ title, message, onClose }) 
   };
 
   return (
+    <NoSSR>
     <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-800'} backdrop-blur z-50`}>
       <div className={`bg-white p-8 rounded-2xl shadow-md w-96 relative ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
         <div className="flex flex-col items-center justify-center">
@@ -39,6 +42,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({ title, message, onClose }) 
         </div>
       </div>
     </div>
+    </NoSSR>
   );
 };
 

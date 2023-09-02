@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCheckCircle, FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import NoSSR from '../noSSR';
 
 interface AddToCartModalProps {
   title: string;
@@ -17,6 +18,7 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
   };
 
   return (
+    <NoSSR>
     <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-800'} backdrop-blur z-50`}>
       <div className={`bg-white dark:bg-zinc-800 p-8 rounded-2xl shadow-md w-96 relative`}>
         <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
@@ -41,6 +43,7 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
         </div>
       </div>
     </div>
+  </NoSSR>
   );
 };
 

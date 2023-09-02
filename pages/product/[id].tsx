@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import '@/app/globals.css'
 import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import AddToCart from '@/components/modals/addToCartModal';
