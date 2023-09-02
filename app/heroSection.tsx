@@ -36,7 +36,7 @@ const HeroSection: React.FC = React.memo(() => {
   }, [currentProductIndex]);
 
   return (
-    <div className={`flex py-4 mb-4 md:justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+    <div className={`flex py-4 mb-2 md:justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
       {currentDisplayedProduct && (
         <div
           className={`lg:w-2/3 p-4 lg:pb-0 lg:pr-24 lg:pl-24 lg:mr-20 lg:ml-20 ${isProductVisible ? "opacity-100 transition-opacity duration-500" : "opacity-0"
