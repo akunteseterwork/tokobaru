@@ -47,7 +47,7 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                                 <Image src={product.picture} alt={product.name} width={200} height={200} />
                             </div>
                         </Link>
-                        <div className="absolute bottom-0 text-gray-200 right-0 bg-green-600 bg-opacity-80 sm:text-sm text-xstext-opacity-75 rounded-br-md rounded-tl-md px-1 py-0">
+                        <div className="absolute bottom-0 text-gray-200 right-0 bg-green-600 bg-opacity-80 text-xs text-opacity-75 rounded-br-md rounded-tl-md px-1 py-0">
                             in stock: {product.stock}
                         </div>
                     </div>

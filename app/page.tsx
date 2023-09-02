@@ -28,6 +28,16 @@ export default function Home() {
     setCurrentPage(page);
   };
 
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
+
   if (error) return <ErrorMessage title="Error Loading Data" message="Unable to fetch data. Please try again later." />;
   if (!data)
     return (
@@ -49,7 +59,7 @@ export default function Home() {
           onPageChange={handlePageChange}
         />
       </div>
-      <div className={`flex justify-center mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+      <div className={`flex justify-center mt-4 mr-10 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <div className="pagination-container text-sm mb-4">
           <button
             className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
