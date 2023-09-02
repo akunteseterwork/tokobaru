@@ -19,6 +19,16 @@ export default function UserProfile() {
   const { theme } = useTheme();
 
   useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
+
+  useEffect(() => {
     async function fetchUserProfile() {
       try {
         const response = await fetchWithToken(`${process.env.NEXT_PUBLIC_API_URL}/users/my`);
