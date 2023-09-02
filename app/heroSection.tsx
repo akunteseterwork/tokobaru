@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import useSWR from 'swr';
 import { fetchData } from '@/utils/fetcher';
+import { useTheme } from 'next-themes';
 
 const HeroSection: React.FC = React.memo(() => {
   const [currentProductIndex, setCurrentProductIndex] = useState(0);
@@ -13,6 +14,7 @@ const HeroSection: React.FC = React.memo(() => {
   );
   const productsCount = productsData?.data.products.length || 0;
   const currentDisplayedProduct = productsData?.data.products[currentProductIndex];
+  const { theme } = useTheme();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,7 +36,7 @@ const HeroSection: React.FC = React.memo(() => {
   }, [currentProductIndex]);
 
   return (
-    <div className="flex bg-gray-100 py-4 md:justify-center">
+    <div className={`flex py-4 md:justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
       {currentDisplayedProduct && (
         <div
           className={`lg:w-2/3 p-4 lg:pb-0 lg:pr-24 lg:pl-24 lg:mr-20 lg:ml-20 ${isProductVisible ? "opacity-100 transition-opacity duration-500" : "opacity-0"
@@ -48,15 +50,15 @@ const HeroSection: React.FC = React.memo(() => {
               height={200}
             />
           </div>
-          <h2 className="text-3xl text-gray-800 font-semibold mb-2">
+          <h1 className={`text-2xl ${theme === 'dark' ? 'text-gray-200' : 'text-gray-800'} font-semibold mb-2`}>
             {currentDisplayedProduct.name}
-          </h2>
-          <p className="text-sm text-gray-500">
+          </h1>
+          <p className={`text-sm ${theme === 'dark' ? 'text-gray-200' : 'text-gray-500'}`}>
             {currentDisplayedProduct.description.length > 200
               ? `${currentDisplayedProduct.description.slice(0, 200)}...`
               : currentDisplayedProduct.description}
             <Link href={`/product/${currentDisplayedProduct.id}`}>
-              <span className="text-blue-500 font-semibold ml-1">
+              <span className={`text-blue-500 font-semibold ml-1 ${theme === 'dark' ? 'text-blue-400' : 'text-blue-500'}`}>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   fill="none"

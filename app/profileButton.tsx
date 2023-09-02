@@ -4,6 +4,7 @@ import Image from 'next/image';
 import ConfirmModal from '@/components/modals/confirmModal';
 import Link from 'next/link';
 import AddProductModal from '@/components/modals/addProductModal';
+import { useTheme } from 'next-themes';
 interface ProfileButtonProps {
   onLogout: () => void;
   userData: UserData | null;
@@ -22,6 +23,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
   const [showAddProductModal, setShowAddProductModal] = useState(false);
   const [showSuccessAddProductModal, setShowSuccessAddProductModal] = useState(false);
   const dropdownRef = useRef(null);
+  const { theme } = useTheme();
 
   const handleProfileClick = () => {
     setShowDropdown((prevShowDropdown) => !prevShowDropdown);
@@ -74,7 +76,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button onClick={handleProfileClick} className="rounded-full w-10 h-10 bg-gray-300">
+      <button onClick={handleProfileClick} className={`rounded-full w-10 h-10 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-300'}`}>
         {userData?.avatar ? (
           <Image
             src={userData.avatar}
@@ -84,26 +86,26 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
             className="rounded-full mx-auto my-auto shadow-xl"
           />
         ) : (
-          <FaUser className="text-white text-lg mx-auto my-auto" />
+          <FaUser className={`text-lg mx-auto my-auto ${theme === 'dark' ? 'text-gray-200' : ''}`} />
         )}
       </button>
       {showDropdown && (
-        <div className="absolute top-12 right-0 bg-white rounded-2xl shadow-md z-50 w-36">
+        <div className={`absolute top-12 right-0 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-white'} rounded-2xl shadow-md z-50 w-36`}>
           <ul className="py-2 shadow-md">
             <Link href="/profile">
               <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
-                <FaUser className="mr-2 text-sm text-gray-600" />
+                <FaUser className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
                 My Profile
               </li>
             </Link>
             <Link href="/product/my">
               <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
-                <FaBoxOpen className="mr-2 text-sm text-gray-600" />
+                <FaBoxOpen className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
                 My Product
               </li>
             </Link>
             <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer" onClick={handleAddProduct}>
-              <FaPlusCircle className="mr-2 text-sm text-gray-600" />
+              <FaPlusCircle className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
               Add Product
             </li>
             <li

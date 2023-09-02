@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
-
+import { useTheme } from 'next-themes';
 interface LoginModalProps {
   onClose: () => void;
 }
@@ -11,6 +11,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const router = useRouter();
+  const { theme } = useTheme();
 
   const handleLogin = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -42,16 +43,16 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-opacity-60 bg-gray-800 backdrop-blur z-50">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-96 relative">
+    <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-800'} backdrop-blur z-50`}>
+      <div className={`bg-white dark:bg-zinc-800 p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700`}>
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 text-gray-500"
+          className={`absolute top-4 right-4 z-10 ${theme === 'dark' ? 'text-gray-500' : 'text-gray-500'}`}
         >
           <FaTimes />
         </button>
-        <h1 className="text-2xl font-bold text-center mb-3">Tokobaru</h1>
-        <h2 className="text-m font-semibold text-center mb-3">
+        <h1 className={`text-2xl font-bold text-center ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>Tokobaru</h1>
+        <h2 className={`text-m text-center mb-3 ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
           Log in to your account
         </h2>
         <form onSubmit={handleLogin}>
@@ -59,7 +60,7 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             <input
               type="text"
               id="username"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
@@ -69,17 +70,17 @@ const LoginModal: React.FC<LoginModalProps> = ({ onClose }) => {
             <input
               type="password"
               id="password"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
             />
           </div>
-          {error && <p className="text-red-500 mb-3 text-center text-sm">{error}</p>}
+          {error && <p className={`text-red-500 mb-3 text-center text-sm ${theme === 'dark' ? 'text-gray-300' : ''}`}>{error}</p>}
           <div className="flex justify-center">
             <button
               type="submit"
-              className="bg-blue-500 text-white px-4 py-2 rounded-xl"
+              className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'hover:bg-blue-600' : ''}`}
             >
               Log in
             </button>

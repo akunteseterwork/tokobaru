@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import '@/app/globals.css';
-import useSWR from 'swr';
-import { fetchWithToken } from '@/utils/fetcher';
+import React, { useState, useEffect } from 'react';
 import { FaEdit, FaTrash } from 'react-icons/fa';
 import Image from 'next/image';
+import useSWR from 'swr';
 import ErrorMessage from '@/components/modals/errorMessage';
 import NavbarLayout from '@/app/navbarLayout';
+import { fetchWithToken } from '@/utils/fetcher';
 import FooterLayout from '@/app/footerLayout';
 import EditProductModal from '@/components/modals/editProductModal';
 import ConfirmModal from '@/components/modals/confirmModal';
+import NoSSR from '@/components/noSSR';
+import { useTheme } from 'next-themes';
 
 interface Product {
   id: number;
@@ -27,6 +28,17 @@ const UserProductPage: React.FC = () => {
   const [isEditModalOpen, setEditModalOpen] = useState(false);
   const [selectedProductId, setSelectedProductId] = useState<number | null>(null);
   const [showDeleteConfirmation, setShowDeleteConfirmation] = useState(false);
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
 
   const openEditModal = (productId: number) => {
@@ -72,25 +84,25 @@ const UserProductPage: React.FC = () => {
       console.error(error);
     }
     setShowDeleteConfirmation(false);
-  }
+  };
+
   const handleCancelDelete = () => {
     setShowDeleteConfirmation(false);
-  }
-
+  };
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
-      <div className="max-w-4xl sm:w-full p-4 xs:2/6 lg:h-3/4 rounded-lg mx-auto">
-        <h1 className="text-md text-center font-semibold mb-4 text-gray-700"> Your Products</h1>
+      <div className={`max-w-4xl sm:w-full p-4 xs:2/6 lg:h-3/4 rounded-lg mx-auto ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+        <h1 className={`text-md text-center font-semibold mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}> Your Products</h1>
         {data?.data?.map((product) => (
-          <div key={product.id} className="flex items-center justify-between p-4 mb-2 bg-white rounded-lg shadow-md lg:w-1/2 mx-auto">
+          <div key={product.id} className={`flex items-center justify-between p-4 mb-2 ${theme === 'dark' ? 'bg-[#212121]' : 'bg-gray-100'} rounded-lg shadow-md lg:w-1/2 mx-auto`}>
             <div className="flex items-center">
               <Image src={product.picture} alt={product.name} width={75} height={75} className="object-cover rounded" />
               <div className="flex-grow">
-                <h2 className="text-sm font-semibold text-gray-700">{product.name}</h2>
-                <p className="text-xs sm:text-xs text-gray-600 mb-2">Price: {product.price}</p>
-                <p className="text-[12px] sm:text-xs text-gray-600">Stock: {product.stock}</p>
+                <h2 className={`text-sm font-semibold  ${theme === 'dark' ? 'text-gray-200' : ''}`}>{product.name}</h2>
+                <p className={`text-xs sm:text-xs  ${theme === 'dark' ? 'text-gray-200' : ''} mb-2`}>Price: {product.price}</p>
+                <p className={`text-[12px] sm:text-xs  ${theme === 'dark' ? 'text-gray-200' : ''}`}>Stock: {product.stock}</p>
               </div>
             </div>
             <div className="text-xs flex flex-col ml-4 gap-2">
@@ -125,8 +137,7 @@ const UserProductPage: React.FC = () => {
         />
       )}
       <FooterLayout />
-
-    </>
+    </NoSSR>
   );
 };
 

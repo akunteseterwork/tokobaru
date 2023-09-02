@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '@/app/globals.css'
 import Image from 'next/image';
 import { GetStaticProps, GetStaticPaths } from 'next';
@@ -7,6 +7,8 @@ import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import { fetchWithToken } from '@/utils/fetcher';
 import NavbarLayout from '@/app/navbarLayout';
 import FooterLayout from '@/app/footerLayout';
+import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 
 interface ProductDetail {
   id: number;
@@ -93,66 +95,78 @@ export default function Detail({ data }: DetailProps) {
   if (!data) {
     return <div>Loading...</div>;
   }
+  const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
-      <div className="bg-gray-100 flex justify-center items-center p-8">
-        <div className="max-w-4xl w-full p-2 rounded-lg">
-          <div className="flex flex-col md:flex-row items-center">
-            <div className="md:w-1/3 mb-4 md:mb-0 md:mr-8">
-              <Image
-                src={data.picture}
-                alt={data.name}
-                width={500}
-                height={500}
-                className="shadow-image-detail"
-              />
-            </div>
-            <div className="w-full md:w-6/12">
-              <h1 className="text-2xl font-semibold text-gray-800">{data.name}</h1>
-              <p className="text-gray-600">{formatRupiah(data.price)}</p>
-              <p className="text-gray-500 mt-2">In Stock: {data.stock}</p>
-              <div className="mt-4 flex items-center">
-                <button
-                  onClick={handleDecrement}
-                  className="text-red-600"
-                >
-                  <FaMinus />
-                </button>
-                <input
-                  type="text"
-                  value={quantity}
-                  onChange={(e) => {
-                    const inputValue = parseInt(e.target.value);
-                    if (!isNaN(inputValue)) {
-                      setQuantity(Math.max(inputValue, 1));
-                    }
-                  }}
-                  className="w-12 text-center mx-2 text-black border-blue-300 rounded"
+      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
+        <div className="flex justify-center items-center p-8">
+          <div className="max-w-4xl w-full p-2 rounded-lg">
+            <div className="flex flex-col md:flex-row items-center">
+              <div className="md:w-1/3 mb-4 md:mb-0 md:mr-8">
+                <Image
+                  src={data.picture}
+                  alt={data.name}
+                  width={500}
+                  height={500}
+                  className="shadow-image-detail"
                 />
-                <button
-                  onClick={handleIncrement}
-                  className="text-green-600"
-                >
-                  <FaPlus />
+              </div>
+              <div className="w-full md:w-6/12">
+                <h1 className={`text-2xl font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{data.name}</h1>
+                <p className={theme === 'dark' ? 'text-gray-200' : ''}>{formatRupiah(data.price)}</p>
+                <p className={`mt-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>In Stock: {data.stock}</p>
+                <div className="mt-4 flex items-center">
+                  <button
+                    onClick={handleDecrement}
+                    className="text-red-600"
+                  >
+                    <FaMinus />
+                  </button>
+                  <input
+                    type="text"
+                    value={quantity}
+                    onChange={(e) => {
+                      const inputValue = parseInt(e.target.value);
+                      if (!isNaN(inputValue)) {
+                        setQuantity(Math.max(inputValue, 1));
+                      }
+                    }}
+                    className={`w-12 text-center mx-2 border-zinc-300 rounded ${theme === 'dark' ? 'bg-zinc-900 text-gray-100' : 'bg-gray-100 text-gray-800'}`} />
+                  <button
+                    onClick={handleIncrement}
+                    className="text-green-600"
+                  >
+                    <FaPlus />
+                  </button>
+                </div>
+                <button className="mt-4 bg-blue-500 text-gray-200 px-4 py-2 rounded-md flex items-center" onClick={handleAddToCart}>
+                  <FaShoppingCart className="mr-2" />
+                  Add to Cart
                 </button>
+                <div className="mt-4 text-sm">
+                  <p className={`text-${theme === 'dark' ? 'gray-300' : 'gray-700'}`}>{data.description}</p>
+                </div>
               </div>
-              <button className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-md flex items-center" onClick={handleAddToCart}>
-                <FaShoppingCart className="mr-2" />
-                Add to Cart
-              </button>
-              <div className="mt-4 text-sm">
-                <p className="text-gray-700">{data.description}</p>
-              </div>
+              {modalOpen && (
+                <AddToCart title="Add to Cart Success" message="You can now checkout or close this to continue shopping" onClose={handleCloseModal} />
+              )}
             </div>
-            {modalOpen && (
-              <AddToCart title="Add to Cart Success" message="You can now checkout or close this to continue shopping" onClose={handleCloseModal} />
-            )}
           </div>
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 }

@@ -4,7 +4,8 @@ import Image from 'next/image';
 import { fetchWithToken } from '@/utils/fetcher';
 import NavbarLayout from '@/app/navbarLayout';
 import FooterLayout from '@/app/footerLayout';
-
+import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 interface UserProfile {
   id: number;
   username: string;
@@ -15,6 +16,7 @@ interface UserProfile {
 
 export default function UserProfile() {
   const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
+  const { theme } = useTheme();
 
   useEffect(() => {
     async function fetchUserProfile() {
@@ -34,10 +36,10 @@ export default function UserProfile() {
   }, []);
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
-      <div className="bg-gray-100 flex justify-center items-center p-8">
-        <div className="max-w-4xl w-full p-2 rounded-lg">
+      <div className={`bg-${theme === 'dark' ? 'black' : 'gray-100'} flex justify-center items-center p-8`}>
+        <div className={`max-w-4xl w-full p-2 rounded-lg ${theme === 'dark' ? 'bg-zinc-800 text-gray-200' : ''}`}>
           {userProfile ? (
             <div className="flex flex-col items-center">
               <div className="rounded-full overflow-hidden w-40 h-40 mb-4">
@@ -49,12 +51,12 @@ export default function UserProfile() {
                 />
               </div>
               <div className="text-center">
-                <h1 className="text-2xl font-semibold text-gray-800">{userProfile.fullname}</h1>
+                <h1 className={`text-2xl font-semibold ${theme === 'dark' ? 'text-gray-50' : 'text-gray-800'}`}>{userProfile.fullname}</h1>
                 <div className="mt-2 grid grid-cols-2 gap-2 justify-center">
-                  <p className="text-right text-gray-600 font-semibold">Username:</p>
-                  <p className="text-left text-gray-800">{userProfile.username}</p>
-                  <p className="text-right text-gray-600 font-semibold">Role:</p>
-                  <p className="text-left text-gray-800">{userProfile.role}</p>
+                  <p className={`text-right ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} font-semibold`}>Username:</p>
+                  <p className={`text-left ${theme === 'dark' ? 'text-gray-50' : 'text-gray-800'}`}>{userProfile.username}</p>
+                  <p className={`text-right ${theme === 'dark' ? 'text-gray-300' : 'text-gray-600'} font-semibold`}>Role:</p>
+                  <p className={`text-left ${theme === 'dark' ? 'text-gray-50' : 'text-gray-800'}`}>{userProfile.role}</p>
                 </div>
               </div>
             </div>
@@ -64,6 +66,6 @@ export default function UserProfile() {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 }

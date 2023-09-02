@@ -7,7 +7,8 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import NavbarLayout from '@/app/navbarLayout';
 import HeroSection from '@/app/heroSection';
 import FooterLayout from '@/app/footerLayout';
-
+import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 interface Product {
   id: number;
   name: string;
@@ -67,6 +68,7 @@ export default function Categories({ data }: CategoriesProps) {
   }
   const [currentPage, setCurrentPage] = useState(1);
   const [isExpanded, setIsExpanded] = useState(true);
+  const { theme } = useTheme();
   const productsPerPage = 6;
   const totalPages = Math.ceil((data.total || 0) / productsPerPage);
   const handlePageChange = (page: number) => {
@@ -75,10 +77,10 @@ export default function Categories({ data }: CategoriesProps) {
 
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
       <HeroSection />
-      <div className="bg-gray-100">
+      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
         <div className="lg:pl-100 flex justify-center">
           <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           <ProductList
@@ -89,21 +91,19 @@ export default function Categories({ data }: CategoriesProps) {
           />
         </div>
         <div className="flex justify-center mt-4">
-          <div className="pagination-container text-sm mb-4">
+          <div className={`pagination-container text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
             <button
-              className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+              className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             >
               <FaChevronLeft />
             </button>
-            <span className="mx-2 text-gray-500">
+            <span className="mx-2">
               Page {currentPage} of {totalPages}
             </span>
             <button
-              className={`text-blue-500 px-2 py-1 rounded ${currentPage === totalPages ? "opacity-50 cursor-not-allowed" : ""
-                }`}
+              className={`text-blue-500 px-2 py-1 rounded ${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
               onClick={() => handlePageChange(currentPage + 1)}
               disabled={currentPage === totalPages}
             >
@@ -113,6 +113,6 @@ export default function Categories({ data }: CategoriesProps) {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 }

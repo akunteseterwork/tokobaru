@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { FaUpload, FaTimes } from 'react-icons/fa';
 import PopUp from './popUpModal';
 import { fetchWithToken } from '@/utils/fetcher';
+import { useTheme } from 'next-themes';
 
 interface AddProductModalProps {
   onClose: () => void;
@@ -17,6 +18,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
   const [picture, setPicture] = useState<File | null>(null);
   const [successMessage, setSuccessMessage] = useState('');
   const [error, setError] = useState('');
+  const { theme } = useTheme();
 
   const handleAddProduct = async (event: React.FormEvent) => {
     event.preventDefault();
@@ -51,21 +53,21 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-opacity-60 bg-gray-800 backdrop-blur z-50">
-      <div className="bg-white p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700">
+    <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-800'} backdrop-blur z-50`}>
+      <div className={`bg-white dark:bg-zinc-800 p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700`}>
         <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
           <FaTimes />
         </button>
-        <h1 className="font-bold text-[18px] text-center mb-4">Add Product</h1>
+        <h1 className={`font-bold text-[18px] text-center mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}>Add Product</h1>
         <form onSubmit={handleAddProduct}>
           {successMessage && (
-            <p className="text-green-500 mb-2 text-center">{successMessage}</p>
+            <p className={`text-green-500 mb-2 text-center ${theme === 'dark' ? 'text-gray-200' : ''}`}>{successMessage}</p>
           )}
           <div className="mb-4">
             <input
               type="text"
               id="categoryId"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Category ID"
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
@@ -76,7 +78,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
             <input
               type="text"
               id="name"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Name"
               value={name}
               onChange={(e) => setName(e.target.value)}
@@ -87,7 +89,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
             <input
               type="text"
               id="description"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
@@ -98,7 +100,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
             <input
               type="number"
               id="price"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Price"
               value={price}
               onChange={(e) => setPrice(e.target.value)}
@@ -109,7 +111,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
             <input
               type="number"
               id="stock"
-              className="w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500"
+              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-zinc-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
               placeholder="Stock"
               value={stock}
               onChange={(e) => setStock(e.target.value)}
@@ -117,7 +119,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
             />
           </div>
           <div className="mb-6 mt-2">
-            <label htmlFor="picture" className="cursor-pointer flex justify-center space-x-2 mt-1 border-dashed border-2 rounded-xl p-2">
+            <label htmlFor="picture" className={`"cursor-pointer flex justify-center space-x-2 mt-1 border-dashed border-2 rounded-xl p-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>
               <FaUpload />
               <span>Upload Picture</span>
             </label>
@@ -132,7 +134,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
           </div>
           {error && (<PopUp title="Error" message={error} />)}
           <div className="flex justify-center">
-            <button type="submit" onClick={handleAddProduct} className="bg-blue-500 text-white px-4 py-2 rounded-xl">
+            <button type="submit" onClick={handleAddProduct} className={`bg-blue-500 text-gray-200 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
               Add Product
             </button>
           </div>

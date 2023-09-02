@@ -27,7 +27,7 @@ const popUp: React.FC<popUpProps> = ({ title, message }) => {
 
   return (
     <div
-      className={`fixed top-4 right-2 w-40 bg-red-500 text-white rounded-lg p-2 shadow-md z-50 ${isVisible ? 'animate-slideBounce' : 'hidden'
+      className={`fixed top-4 right-2 w-40 bg-red-500 text-gray-200 rounded-lg p-2 shadow-md z-50 ${isVisible ? 'animate-slideBounce' : 'hidden'
         } ${isBouncing ? 'animate-bounce' : ''}`}
       onAnimationEnd={onAnimationEnd}
     >

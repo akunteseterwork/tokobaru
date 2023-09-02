@@ -8,6 +8,8 @@ import ErrorMessage from '@/components/modals/errorMessage';
 import SuccessModal from '@/components/modals/successModal';
 import NavbarLayout from '../navbarLayout';
 import FooterLayout from '../footerLayout';
+import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 
 interface OrderItem {
   orderId: number;
@@ -22,6 +24,7 @@ interface OrderItem {
 const CartPage: React.FC = () => {
   const { data, error, mutate } = useSWR<{ data: OrderItem[] }>(`${process.env.NEXT_PUBLIC_API_URL}/orders/my`, fetchWithToken);
   const [isModalOpen, setModalOpen] = useState(false);
+  const { theme } = useTheme();
 
   const removeItem = async (orderId: number) => {
     try {
@@ -75,15 +78,15 @@ const CartPage: React.FC = () => {
   );
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
-      <div className="bg-gray-100 flex justify-center items-center p-4">
+      <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'} flex justify-center items-center p-4`}>
         <div className="max-w-4xl w-full p-2 rounded-lg">
-          <h1 className="text-2xl font-semibold mb-4 text-gray-700"> Your cart</h1>
+          <h1 className={`text-2xl font-semibold mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}> Your cart</h1>
           <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-6">
             <div className="grid gap-4 md:grid-cols-1">
               {data?.data?.map((item) => (
-                <div key={item.orderId} className="relative p-4">
+                <div key={item.orderId} className={`relative p-2 rounded-lg shadow-md ${theme === 'dark' ? 'bg-[#212121]' : 'bg-gray-100'}`}>
                   <button onClick={() => removeItem(item.orderId)} className="absolute top-0 right-0 text-red-500">
                     <FaTrash className="mr-6 mt-6" />
                   </button>
@@ -92,9 +95,9 @@ const CartPage: React.FC = () => {
                       <Image src={item.productPicture} alt={item.productName} width={75} height={75} className="object-cover rounded" />
                     </div>
                     <div className="flex-grow ml-4">
-                      <h2 className="text-md font-semibold text-gray-700">{item.productName}</h2>
-                      <p className="text-sm text-gray-600 mb-2">Price: {formatRupiah(item.productPrice)}</p>
-                      <p className="text-xs text-gray-600">Quantity: {item.amount}</p>
+                      <h2 className={`text-md font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{item.productName}</h2>
+                      <p className={`text-sm mb-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>Price: {formatRupiah(item.productPrice)}</p>
+                      <p className={`text-xs ${theme === 'dark' ? 'text-gray-200' : ''}`}>Quantity: {item.amount}</p>
                     </div>
                   </div>
                 </div>
@@ -102,12 +105,12 @@ const CartPage: React.FC = () => {
             </div>
             <div>
               <div className="p-4 mb-4">
-                <h2 className="text-lg font-semibold text-gray-700 mb-4">Order Summary</h2>
+                <h2 className={`text-lg font-semibold mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}>Order Summary</h2>
                 <div className="flex justify-between items-center mb-2">
-                  <p className="text-gray-500">Total:</p>
-                  <p className="text-gray-700 font-semibold">{formatRupiah(data?.data?.reduce((total, item) => total + item.totalPrice, 0) || 0)}</p>
+                  <p className={`${theme === 'dark' ? 'text-gray-200' : ''}`}>Total:</p>
+                  <p className={`font-semibold ${theme === 'dark' ? 'text-gray-200' : ''}`}>{formatRupiah(data?.data?.reduce((total, item) => total + item.totalPrice, 0) || 0)}</p>
                 </div>
-                <button className="bg-blue-500 text-white px-4 py-2 rounded-md w-full flex  justify-center items-center" onClick={handleCheckout}>
+                <button className="bg-blue-500 text-gray-200 px-4 py-2 rounded-md w-full flex  justify-center items-center" onClick={handleCheckout}>
                   <FaShoppingCart className="mr-2" />
                   Checkout
                 </button>
@@ -120,7 +123,7 @@ const CartPage: React.FC = () => {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 };
 
