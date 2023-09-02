@@ -2,8 +2,10 @@ import "./globals.css";
 import React from 'react';
 import { ThemeProvider } from "@/app/themeProvider";
 import { ThemeSwitcher } from "@/app/themeSwitcher";
+import { useTheme } from "next-themes";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
+  const { theme } = useTheme();
   return (
     <html lang="en">
       <head>
@@ -17,7 +19,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           content="Ecommerce website built with NextJS 13 for testing purpose."
         />
       </head>
-      <body className="bg-gray-100 dark:bg-zinc-800 font-inter">
+      <body className={`font-inter ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <ThemeSwitcher />
           {children}
