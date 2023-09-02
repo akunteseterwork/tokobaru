@@ -6,7 +6,7 @@ export default function Document() {
     return (
         <Html>
             <Head />
-            <body className={`font-inter ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
+            <body>
                 <Main />
                 <NextScript />
             </body>
