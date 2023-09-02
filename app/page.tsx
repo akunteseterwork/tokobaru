@@ -38,7 +38,7 @@ export default function Home() {
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
-      <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
+      <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
         <ProductList
           products={data.data.products}
