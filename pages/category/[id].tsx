@@ -80,7 +80,6 @@ export default function Categories({ data }: CategoriesProps) {
     <NoSSR>
       <NavbarLayout />
       <HeroSection />
-      <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
         <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
           <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
           <ProductList
@@ -90,7 +89,7 @@ export default function Categories({ data }: CategoriesProps) {
             onPageChange={handlePageChange}
           />
         </div>
-        <div className="flex justify-center mt-4">
+        <div className={`flex justify-center mt-4 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
           <div className={`pagination-container text-sm mb-4 ${theme === 'dark' ? 'text-gray-300' : 'text-gray-500'}`}>
             <button
               className={`text-blue-500 px-2 py-1 rounded ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
@@ -111,7 +110,6 @@ export default function Categories({ data }: CategoriesProps) {
             </button>
           </div>
         </div>
-      </div>
       <FooterLayout />
     </NoSSR>
   );
