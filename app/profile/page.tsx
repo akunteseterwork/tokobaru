@@ -35,10 +35,10 @@ export default function UserProfile() {
         if (response.code === 200) {
           setUserProfile(response.data);
         } else {
-          return;
+          console.error('Failed to fetch user profile');
         }
       } catch (error) {
-        return;
+        console.error('Error fetching user profile:', error);
       }
     }
 

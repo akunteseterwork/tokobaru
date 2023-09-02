@@ -71,10 +71,12 @@ const CartPage: React.FC = () => {
     return (
       <>
       <NavbarLayout />
-      <span className={`text-md font-semibold flex items-center ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
-      <FaChild className="text-md mr-2" />;
+      <div className="flex items-center justify-center mt-6 mb-2">
+      <FaChild className="text-lg text-blue-500 mr-2 mt-4" />
+      <span className={`text-sm mt-4 ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>
       No order here, please add product
-          </span>
+      </span>
+      </div>
       <FooterLayout />
     </>
     );
