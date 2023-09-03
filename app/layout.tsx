@@ -4,7 +4,6 @@ import React , { useEffect } from 'react';
 import { ThemeProvider } from "@/app/themeProvider";
 import { ThemeSwitcher } from "@/app/themeSwitcher";
 import { useTheme } from "next-themes";
-import NoSSR from "@/components/noSSR";
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const { theme } = useTheme();
   useEffect(() => {
@@ -17,7 +16,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }
   }, [theme]);
   return (
-    <NoSSR>
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
@@ -37,6 +35,5 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </ThemeProvider>
       </body>
     </html>
-    </NoSSR>
   );
 }
