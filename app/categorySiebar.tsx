@@ -1,15 +1,26 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import useSWR from "swr";
 import { fetchData } from "@/utils/fetcher";
 import { FaChevronCircleRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useTheme } from 'next-themes';
+import NoSSR from "@/components/noSSR";
 
 const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boolean) => void }> = ({ isExpanded, setIsExpanded }) => {
   const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/categories`, fetchData);
   const [selectedCategory, setSelectedCategory] = useState<number | "all">("all");
   const router = useRouter();
   const { theme } = useTheme();
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.body.classList.remove('bg-gray-100');
+      document.body.classList.add('dark', 'bg-zinc-800', 'font-inter');
+    } else {
+      document.body.classList.remove('dark', 'bg-zinc-800', 'font-inter');
+      document.body.classList.add('bg-gray-100');
+    }
+  }, [theme]);
 
   const handleCategoryClick = (categoryId: number | "all") => {
     setSelectedCategory(categoryId);
@@ -24,7 +35,7 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
   if (!data) return <div>Loading categories...</div>;
 
   return (
-    <div>
+    <NoSSR>
       <button
         onClick={() => setIsExpanded(!isExpanded)}
         className={`flex items-center mb-4 text-xl text-${theme === 'dark' ? 'white' : 'gray-800'} font-semibold`}
@@ -63,7 +74,7 @@ const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boo
           ))}
         </div>
       )}
-    </div>
+    </NoSSR>
   );
 };
 
