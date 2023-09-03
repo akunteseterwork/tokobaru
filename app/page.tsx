@@ -11,8 +11,6 @@ import FooterLayout from './footerLayout';
 import ProductList from './productList';
 import HeroSection from './heroSection';
 import { useTheme } from 'next-themes';
-import NoSSR from '@/components/noSSR';
-
 
 export default function Home() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -47,7 +45,7 @@ export default function Home() {
     );
 
   return (
-    <NoSSR>
+    <>
       <NavbarLayout />
       <HeroSection />
       <div className={`lg:pl-100 flex justify-center ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
@@ -83,6 +81,6 @@ export default function Home() {
         </div>
       </div>
       <FooterLayout />
-    </NoSSR>
+      </>
   );
 }

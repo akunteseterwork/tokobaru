@@ -5,7 +5,6 @@ import { FaChevronCircleRight } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 import { useTheme } from 'next-themes';
 
-
 const SidebarSection: React.FC<{ isExpanded: boolean; setIsExpanded: (value: boolean) => void }> = ({ isExpanded, setIsExpanded }) => {
   const { data, error } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/categories`, fetchData);
   const [selectedCategory, setSelectedCategory] = useState<number | "all">("all");
