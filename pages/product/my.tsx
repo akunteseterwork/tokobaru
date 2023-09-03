@@ -97,7 +97,7 @@ const UserProductPage: React.FC = () => {
         <h1 className={`text-md text-center font-semibold mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}> Your Products</h1>
         {data?.data?.map((product) => (
           <div key={product.id} className={`flex items-center justify-between p-4 mb-2 ${theme === 'dark' ? 'bg-[#212121]' : 'bg-gray-100'} rounded-lg shadow-md lg:w-1/2 mx-auto`}>
-            <div className="flex items-center">
+            <div className="flex items-center gap-2">
               <Image src={product.picture} alt={product.name} width={75} height={75} className="object-cover rounded" />
               <div className="flex-grow">
                 <h2 className={`text-sm font-semibold  ${theme === 'dark' ? 'text-gray-200' : ''}`}>{product.name}</h2>

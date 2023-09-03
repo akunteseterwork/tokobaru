@@ -51,11 +51,13 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
                             in stock: {product.stock}
                         </div>
                     </div>
+                    <Link href={`/product/${product.id}`}>
                     <h2 className="text-sm font-semibold mt-3">
                         {splitIntoGroups(product.name, 3).map((group, index) => (
                             <div key={index}>{group.join(" ")}</div>
                         ))}
                     </h2>
+                    </Link>
                     <p className="text-xs ">{formatRupiah(product.price)}</p>
                     <div className="mt-2"></div>
                 </div>
