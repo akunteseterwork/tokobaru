@@ -20,8 +20,8 @@ export default function Document() {
         <Html>
             <Head />
             <body className={`${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-100'}`}>
-                <Main />
-                <NextScript />
+            <Main />
+            <NextScript />
             </body>
         </Html>
     )

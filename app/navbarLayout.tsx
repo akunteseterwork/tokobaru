@@ -126,15 +126,13 @@ export default function NavbarLayout() {
                   <Link
                     href="#"
                     onClick={handleLoginClick}
-                    className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-500'}`}
-                  >
+                    className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-500'}`} >
                     <span>Login</span>
                   </Link>
                   <Link
                     href="#"
                     onClick={handleRegisterClick}
-                    className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-500'}`}
-                  >
+                    className={`text-sm font-semibold ${theme === 'dark' ? 'text-gray-200' : 'text-gray-500'}`} >
                     <span>Register</span>
                   </Link>
                 </>
@@ -143,7 +141,8 @@ export default function NavbarLayout() {
           </div>
         </div>
         {showLoginModal && (
-          <LoginModal onClose={handleCloseLoginModal} />
+          <LoginModal onClose={handleCloseLoginModal} 
+          />
         )}
         {showRegisterModal && (
           <RegisterModal
@@ -161,7 +160,7 @@ export default function NavbarLayout() {
           onCancel={handleCancelRegister}
           Button2="Go Home"
           Button1="Go Rick Roll"
-        />
+          />
       )}
     </nav>
   )

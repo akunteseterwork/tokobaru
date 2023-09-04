@@ -25,8 +25,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <title>Tokobaru - Simple Ecommerce Web</title>
         <meta
           name="description"
-          content="Ecommerce website built with NextJS 13 for testing purpose."
-        />
+          content="Ecommerce website built with NextJS 13 for testing purpose." />
       </head>
       <body className={`${theme === 'dark' ? 'bg-zinc-700' : 'bg-gray-100'}`}>
         <ThemeProvider attribute="class" defaultTheme="light">

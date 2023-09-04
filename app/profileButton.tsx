@@ -91,7 +91,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
             width={64}
             height={64}
             className="rounded-full mx-auto my-auto shadow-xl"
-          />
+            />
         ) : (
           <FaUser className={`text-lg mx-auto my-auto ${theme === 'dark' ? 'text-gray-200' : ''}`} />
         )}
@@ -101,24 +101,28 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
           <ul className="py-2 shadow-md">
             <Link href="/profile">
               <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
-                <FaUser className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
+                <FaUser className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} 
+                />
                 My Profile
               </li>
             </Link>
             <Link href="/product/my">
               <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer">
-                <FaBoxOpen className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
+                <FaBoxOpen className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} 
+                />
                 My Product
               </li>
             </Link>
             <li className="flex text-sm items-center px-4 py-2 hover:text-blue-600 hover:font-semibold cursor-pointer" onClick={handleAddProduct}>
-              <FaPlusCircle className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} />
+              <FaPlusCircle className={`mr-2 text-sm text-gray-600 ${theme === 'dark' ? 'text-gray-200' : ''}`} 
+              />
               Add Product
             </li>
             <li
               onClick={handleLogoutClick}
               className="flex text-sm items-center px-4 py-2 hover:text-red-800 hover:font-semibold cursor-pointer text-red-500">
-              <FaSignOutAlt className="mr-2 text-sm text-red-600" />
+              <FaSignOutAlt className="mr-2 text-sm text-red-600" 
+              />
               Logout
             </li>
           </ul>
@@ -138,8 +142,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
           onConfirm2={handleConfirmLogout}
           onCancel={handleCancelLogout}
           Button1="Confirm but in green"
-          Button2="Confirm"
-        />
+          Button2="Confirm" />
       )}
       {showSuccessAddProductModal && (
         <ConfirmModal
@@ -149,8 +152,7 @@ const ProfileButton: React.FC<ProfileButtonProps> = ({ onLogout, userData }) => 
           onConfirm={handleAddProduct}
           onCancel={handleCloseProductModal}
           Button2='Go Home'
-          Button1='Add another product'
-        />
+          Button1='Add another product' />
       )}
     </div>
   );

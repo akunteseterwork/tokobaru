@@ -74,82 +74,82 @@ const EditProductModal: React.FC<EditProductModalProps> = ({ onClose, onSuccess,
 
   return (
     <NoSSR>
-    <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-800'} backdrop-blur z-50`}>
-      <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-white'} p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700`}>
-        <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
-          <FaTimes />
-        </button>
-        <h1 className={`font-bold text-[18px] text-center mb-4 ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>Edit Product</h1>
-        <form onSubmit={handleEditProduct}>
-          {successMessage && (
-            <p className={`text-green-500 mb-2 text-center ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>{successMessage}</p>
-          )}
-          <div className="mb-4">
-            <input
-              type="text"
-              id="name"
-              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
-              placeholder="Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="text"
-              id="description"
-              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
-              placeholder="Description"
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="number"
-              id="price"
-              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
-              placeholder="Price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <input
-              type="number"
-              id="stock"
-              className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
-              placeholder="Stock"
-              value={stock}
-              onChange={(e) => setStock(e.target.value)}
-              required
-            />
-          </div>
-          <div className="mb-6 mt-2">
-            <label htmlFor="picture" className={`"cursor-pointer flex justify-center space-x-2 mt-1 border-dashed border-2 rounded-xl p-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>
-              <FaUpload />
-              <span>Upload Picture</span>
-            </label>
-            <input
-              type="file"
-              id="picture"
-              accept="image/*"
-              className="hidden"
-              onChange={(e) => setPicture(e.target.files && e.target.files[0])}
-            />
-          </div>
-          {error && (<PopUp title="Error" message={error} />)}
-          <div className="flex justify-center">
-            <button type="submit" onClick={handleEditProduct} className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
-              Edit Product
-            </button>
-          </div>
-        </form>
+      <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-800'} backdrop-blur z-50`}>
+        <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-white'} p-8 rounded-2xl shadow-md w-96 relative text-sm text-gray-700`}>
+          <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
+            <FaTimes />
+          </button>
+          <h1 className={`font-bold text-[18px] text-center mb-4 ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>Edit Product</h1>
+          <form onSubmit={handleEditProduct}>
+            {successMessage && (
+              <p className={`text-green-500 mb-2 text-center ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>{successMessage}</p>
+            )}
+            <div className="mb-4">
+              <input
+                type="text"
+                id="name"
+                className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
+                placeholder="Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="text"
+                id="description"
+                className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="number"
+                id="price"
+                className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
+                placeholder="Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-4">
+              <input
+                type="number"
+                id="stock"
+                className={`w-full p-2 border border-gray-300 rounded-xl placeholder-gray-500 ${theme === 'dark' ? 'bg-zinc-800 text-zinc-300' : ''}`}
+                placeholder="Stock"
+                value={stock}
+                onChange={(e) => setStock(e.target.value)}
+                required
+              />
+            </div>
+            <div className="mb-6 mt-2">
+              <label htmlFor="picture" className={`"cursor-pointer flex justify-center space-x-2 mt-1 border-dashed border-2 rounded-xl p-2 ${theme === 'dark' ? 'text-gray-200' : ''}`}>
+                <FaUpload />
+                <span>Upload Picture</span>
+              </label>
+              <input
+                type="file"
+                id="picture"
+                accept="image/*"
+                className="hidden"
+                onChange={(e) => setPicture(e.target.files && e.target.files[0])}
+              />
+            </div>
+            {error && (<PopUp title="Error" message={error} />)}
+            <div className="flex justify-center">
+              <button type="submit" onClick={handleEditProduct} className={`bg-blue-500 text-gray-100 px-4 py-2 rounded-xl ${theme === 'dark' ? 'bg-blue-500' : ''}`}>
+                Edit Product
+              </button>
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
     </NoSSR>
   );
 };
