@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import SidebarSection from '@/app/categorySiebar';
-import ProductList from '@/app/productList';
+import React, { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { GetStaticProps, GetStaticPaths } from 'next';
 import NavbarLayout from '@/app/navbarLayout';
@@ -8,6 +6,11 @@ import HeroSection from '@/app/heroSection';
 import FooterLayout from '@/app/footerLayout';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
+import SidebarSection from '@/app/categorySiebar';
+import ProductList from '@/app/productList';
+import SearchBar from '@/app/searchBar';
+const { useRouter } = require('next/navigation');
+
 interface Product {
   id: number;
   name: string;
@@ -35,8 +38,6 @@ interface CategoriesProps {
   data: CategoryDetail;
 }
 
-
-
 export const getStaticPaths: GetStaticPaths = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories`);
   const data = await res.json();
@@ -62,6 +63,7 @@ export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }
 };
 
 export default function Categories({ data }: CategoriesProps) {
+  const router = useRouter();
   if (!data) {
     return <div>Loading...</div>;
   }
@@ -70,10 +72,31 @@ export default function Categories({ data }: CategoriesProps) {
   const { theme } = useTheme();
   const productsPerPage = 6;
   const totalPages = Math.ceil((data.total || 0) / productsPerPage);
+  const [searchQuery, setSearchQuery] = useState<string>(''); 
+  const [filteredProducts, setFilteredProducts] = useState<any[]>(data.products);
+
+  useEffect(() => {
+    const filtered = data.products.filter((product) =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredProducts(filtered);
+  }, [searchQuery, data.products]);
+
+  const handleSearch = async (query: string) => {
+    setSearchQuery(query);
+    const endpoint = `${process.env.NEXT_PUBLIC_API_URL}/categories/${data.id}?search=${query}`;
+    const response = await fetch(endpoint);
+    const responseData = await response.json();
+    setFilteredProducts(responseData.data.products);
+    router.push({
+      pathname: router.pathname,
+      query: { id: data.id, search: query }, 
+    });
+  };
+  
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
-
 
   return (
     <NoSSR>
@@ -84,11 +107,13 @@ export default function Categories({ data }: CategoriesProps) {
           <div className="flex justify-center p-4">
             <SidebarSection isExpanded={isExpanded} setIsExpanded={setIsExpanded} />
             <div className="sm:w-2/6 xs:w-4/12 lg:w-3/6 xl:w-5/12">
+             <SearchBar onSearch={handleSearch} />
               <ProductList
-                products={data.products}
+                products={filteredProducts}
                 currentPage={currentPage}
                 totalPages={totalPages}
                 onPageChange={handlePageChange}
+                searchQuery={searchQuery}
               />
             </div>
           </div>
