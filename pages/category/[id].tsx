@@ -50,28 +50,16 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<CategoriesProps | { data: null }> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }) => {
   const id = params?.id;
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
-    if (!res.ok) {
-      throw new Error(`Failed to fetch data for category ${id}`);
-    }
-    const data = await res.json();
-    return {
-      props: {
-        data: data.data || null,
-      },
-      revalidate: 60 * 1
-    };
-  } catch (error) {
-    console.error(error);
-    return {
-      props: {
-        data: null,
-      },
-    };
-  }
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
+  const data = await res.json();
+  return {
+    props: {
+      data: data.data,
+    },
+    revalidate: 60 * 1
+  };
 };
 
 export default function Categories({ data }: CategoriesProps) {
