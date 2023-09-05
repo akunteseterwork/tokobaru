@@ -50,15 +50,19 @@ export const getStaticPaths: GetStaticPaths = async () => {
   };
 };
 
-export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }) => {
+export const getStaticProps: GetStaticProps<CategoriesProps | { data: null }> = async ({ params }) => {
   const id = params?.id;
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
   try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data for category ${id}`);
+    }
     const data = await res.json();
     return {
       props: {
-        data: data.data || null, 
+        data: data.data || null,
       },
+      revalidate: 60 * 1
     };
   } catch (error) {
     console.error(error);
