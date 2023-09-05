@@ -31,7 +31,7 @@ function splitIntoGroups(text: string, groupSize: number) {
 
 const ProductList: React.FC<ProductListProps> = ({ products }) => {
   const { theme } = useTheme();
-  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [searchQuery] = useState<string>('');
   const [filteredProducts, setFilteredProducts] = useState<any[]>(products);
 
   useEffect(() => {
@@ -48,6 +48,10 @@ const ProductList: React.FC<ProductListProps> = ({ products }) => {
         <div className="animate-spin rounded-full h-10 w-10 border-t-2 border-blue-500 border-opacity-50"></div>
       </div>
     );
+  }
+
+  if (filteredProducts.length === 0) {
+    return <div className={`text-left p-8 text-sm ${theme === 'dark' ? 'text-gray-200' : 'text-black'}`}>No product found 🗿</div>;
   }
 
   if (!products)
