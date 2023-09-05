@@ -54,23 +54,13 @@ export const getStaticProps: GetStaticProps<CategoriesProps> = async ({ params }
   const id = params?.id;
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/categories/${id}?page=1&per_page=9`);
   const data = await res.json();
-  if (data === undefined) {
-    return {
-      props: {
-        data: null,
-      },
-      revalidate: 60 * 1,
-    };
-  }
-
   return {
     props: {
       data: data.data,
     },
-    revalidate: 60 * 1,
+    revalidate: 60 * 1
   };
 };
-
 
 export default function Categories({ data }: CategoriesProps) {
   const router = useRouter();
