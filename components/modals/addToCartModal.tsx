@@ -2,6 +2,7 @@ import React from 'react';
 import { FaCheckCircle, FaTimes, FaShoppingCart } from 'react-icons/fa';
 import { useRouter } from 'next/navigation';
 import { useTheme } from 'next-themes';
+import NoSSR from '../noSSR';
 
 interface AddToCartModalProps {
   title: string;
@@ -17,9 +18,9 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
   };
 
   return (
-    <>
-      <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-800'} backdrop-blur z-50`}>
-        <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-white'} p-8 rounded-2xl shadow-md w-96 relative`}>
+    <NoSSR>
+      <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-zinc-900'} backdrop-blur z-50`}>
+        <div className={`${theme === 'dark' ? 'bg-zinc-900' : 'bg-white'} p-8 rounded-2xl shadow-md w-96 relative`}>
           <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
             <FaTimes />
           </button>
@@ -27,10 +28,10 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
             <div className={`text-green-500 ${theme === 'dark' ? 'dark:text-green-300' : ''}`}>
               <FaCheckCircle className="text-6xl mb-2" />
             </div>
-            <h2 className={`text-gray-800 text-sm font-semibold text-center mb-1 ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
+            <h2 className={`text-sm font-semibold text-center mb-1 ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
               {title}
             </h2>
-            <p className={`text-gray-600 mb-3 text-xs text-center ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
+            <p className={`mb-3 text-xs text-center ${theme === 'dark' ? 'text-gray-50' : 'text-gray-700'}`}>
               {message}
             </p>
             <div className="flex justify-center">
@@ -42,7 +43,7 @@ const AddToCart: React.FC<AddToCartModalProps> = ({ title, message, onClose }) =
           </div>
         </div>
       </div>
-    </>
+    </NoSSR>
   );
 };
 
