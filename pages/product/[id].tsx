@@ -122,7 +122,7 @@ export default function Detail({ data }: DetailProps) {
   }, [theme]);
 
   return (
-    <NoSSR>
+    <>
       <NavbarLayout />
       <div className={theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}>
         <div className="flex justify-center items-center p-8">
@@ -192,6 +192,6 @@ export default function Detail({ data }: DetailProps) {
         </div>
       </div>
       <FooterLayout />
-    </NoSSR>
+    </>
   );
 }

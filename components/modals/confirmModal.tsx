@@ -16,7 +16,7 @@ interface ConfirmModalProps {
 const ConfirmModal: React.FC<ConfirmModalProps> = ({ title, message, onConfirm, onCancel, onConfirm2, Button1, Button2 }) => {
   const { theme } = useTheme();
   return (
-    <NoSSR>
+    <>
       <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-gray-800'} backdrop-blur z-50`}>
         <div className={`p-8 rounded-2xl w-96 relative ${theme === 'dark' ? 'bg-zinc-800 text-gray-200' : 'bg-gray-100 text-gray-800'}`}>
           <button
@@ -43,7 +43,7 @@ const ConfirmModal: React.FC<ConfirmModalProps> = ({ title, message, onConfirm, 
           </div>
         </div>
       </div>
-    </NoSSR>
+    </>
   );
 };
 

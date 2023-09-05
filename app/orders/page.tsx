@@ -9,7 +9,6 @@ import SuccessModal from '@/components/modals/successModal';
 import NavbarLayout from '../navbarLayout';
 import FooterLayout from '../footerLayout';
 import { useTheme } from 'next-themes';
-import NoSSR from '@/components/noSSR';
 interface OrderItem {
   orderId: number;
   productId: number;

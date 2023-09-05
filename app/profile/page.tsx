@@ -5,7 +5,6 @@ import { fetchWithToken } from "@/utils/fetcher";
 import NavbarLayout from "@/app/navbarLayout";
 import FooterLayout from "@/app/footerLayout";
 import { useTheme } from "next-themes";
-import NoSSR from "@/components/noSSR";
 interface UserProfile {
   id: number;
   username: string;
@@ -48,7 +47,7 @@ export default function UserProfile() {
   }, []);
 
   return (
-    <NoSSR>
+    <>
       <NavbarLayout />
       <div
         className={`${
@@ -118,6 +117,6 @@ export default function UserProfile() {
         </div>
       </div>
       <FooterLayout />
-    </NoSSR>
+    </>
   );
 }

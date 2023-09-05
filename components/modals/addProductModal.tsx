@@ -3,7 +3,6 @@ import { FaUpload, FaTimes } from 'react-icons/fa';
 import PopUp from './popUpModal';
 import { fetchWithToken } from '@/utils/fetcher';
 import { useTheme } from 'next-themes';
-import NoSSR from '../noSSR';
 
 interface Category {
   id: number;
@@ -82,7 +81,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
   };
 
   return (
-    <NoSSR>
+    <>
       <div className={`fixed inset-0 flex justify-center items-center bg-opacity-60 ${theme === 'dark' ? 'bg-zinc-900' : 'bg-zinc-800'} backdrop-blur z-50`}>
         <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-white'} p-8 rounded-2xl shadow-md w-96 relative text-sm`}>
           <button onClick={onClose} className="absolute top-4 right-4 z-10 text-gray-500">
@@ -182,7 +181,7 @@ const AddProductModal: React.FC<AddProductModalProps> = ({ onClose, onSuccess })
           </form>
         </div>
       </div>
-    </NoSSR>
+    </>
   );
 };
 
