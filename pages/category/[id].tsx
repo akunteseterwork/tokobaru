@@ -99,7 +99,7 @@ export default function Categories({ data }: CategoriesProps) {
   };
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
       <HeroSection />
       <div className={`lg:pl-100 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
@@ -144,6 +144,6 @@ export default function Categories({ data }: CategoriesProps) {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 }
