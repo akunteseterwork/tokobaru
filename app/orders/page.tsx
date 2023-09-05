@@ -9,6 +9,7 @@ import SuccessModal from '@/components/modals/successModal';
 import NavbarLayout from '../navbarLayout';
 import FooterLayout from '../footerLayout';
 import { useTheme } from 'next-themes';
+import NoSSR from '@/components/noSSR';
 interface OrderItem {
   orderId: number;
   productId: number;
@@ -100,7 +101,7 @@ const CartPage: React.FC = () => {
   );
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
       <div className={`${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'} flex justify-center items-center p-4`}>
         <div className="max-w-4xl w-full p-2 rounded-lg">
@@ -145,7 +146,7 @@ const CartPage: React.FC = () => {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 };
 

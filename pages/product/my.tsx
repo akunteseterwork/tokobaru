@@ -91,7 +91,7 @@ const UserProductPage: React.FC = () => {
   };
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
       <div className={`max-w-4xl sm:w-full p-4 xs:2/6 lg:h-3/4 rounded-lg mx-auto ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
         <h1 className={`text-md text-center font-semibold mb-4 ${theme === 'dark' ? 'text-gray-200' : ''}`}> Your Products</h1>
@@ -137,7 +137,7 @@ const UserProductPage: React.FC = () => {
         />
       )}
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 };
 
