@@ -1,9 +1,9 @@
 import { ThemeProvider } from 'next-themes';
 import { AppProps } from 'next/app';
-import "../app/globals.css";
+import "@/app/globals.css";
 import Head from 'next/head';
 
-import { ThemeSwitcher } from '@/app/themeSwitcher';
+import { ThemeSwitcher } from '@/components/themeSwitcher';
 
 function MyApp({ Component, pageProps }: AppProps) {
 

@@ -4,8 +4,8 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import AddToCart from '@/components/modals/addToCartModal';
 import { FaShoppingCart, FaMinus, FaPlus } from 'react-icons/fa';
 import { fetchWithToken } from '@/utils/fetcher';
-import NavbarLayout from '@/app/navbarLayout';
-import FooterLayout from '@/app/footerLayout';
+import NavbarLayout from '@/components/navbarLayout';
+import FooterLayout from '@/components/footerLayout';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
 interface ProductDetail {

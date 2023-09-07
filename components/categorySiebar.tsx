@@ -8,15 +8,9 @@ import { usePathname } from "next/navigation";
 
 const SidebarSection: React.FC<{
   isExpanded: boolean;
-  setIsExpanded: (value: boolean) => void;
-}> = ({ isExpanded, setIsExpanded }) => {
-  const { data, error } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/categories`,
-    fetchData
-  );
-  const [selectedCategory, setSelectedCategory] = useState<number | "all">(
-    "all"
-  );
+  setIsExpanded: (value: boolean) => void;}> = ({ isExpanded, setIsExpanded }) => {
+  const { data, error } = useSWR( `${process.env.NEXT_PUBLIC_API_URL}/categories`, fetchData);
+  const [selectedCategory, setSelectedCategory] = useState<number | "all">("all");
   const router = useRouter();
   const { theme } = useTheme();
   const pathname = usePathname() || "";

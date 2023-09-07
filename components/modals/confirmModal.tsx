@@ -1,7 +1,6 @@
 import React from 'react';
 import { FaTimes } from 'react-icons/fa';
 import { useTheme } from 'next-themes';
-import NoSSR from '../noSSR';
 
 interface ConfirmModalProps {
   title: string;

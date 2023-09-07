@@ -3,15 +3,15 @@
 import React, { useState, useEffect } from 'react';
 import useSWR from 'swr';
 import { fetchData } from '@/utils/fetcher';
-import SidebarSection from './categorySiebar';
+import SidebarSection from '@/components/categorySiebar';
 import ErrorMessage from '@/components/modals/errorMessage';
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import NavbarLayout from './navbarLayout';
-import FooterLayout from './footerLayout';
-import ProductList from './productList';
-import HeroSection from './heroSection';
+import NavbarLayout from '@/components/navbarLayout';
+import FooterLayout from '@/components/footerLayout';
+import ProductList from '@/components/productList';
+import HeroSection from '@/components/heroSection';
 import { useTheme } from 'next-themes';
-import SearchBar from './searchBar';
+import SearchBar from '@/components/searchBar';
 import { usePathname } from 'next/navigation'
 
 

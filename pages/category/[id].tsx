@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import { GetStaticProps, GetStaticPaths } from 'next';
-import NavbarLayout from '@/app/navbarLayout';
-import HeroSection from '@/app/heroSection';
-import FooterLayout from '@/app/footerLayout';
+import NavbarLayout from '@/components/navbarLayout';
+import HeroSection from '@/components/heroSection';
+import FooterLayout from '@/components/footerLayout';
 import { useTheme } from 'next-themes';
-import NoSSR from '@/components/noSSR';
-import SidebarSection from '@/app/categorySiebar';
-import ProductList from '@/app/productList';
-import SearchBar from '@/app/searchBar';
+import SidebarSection from '@/components/categorySiebar';
+import ProductList from '@/components/productList';
+import SearchBar from '@/components/searchBar';
 const { useRouter } = require('next/navigation');
 
 interface Product {
@@ -99,7 +98,7 @@ export default function Categories({ data }: CategoriesProps) {
   };
 
   return (
-    <NoSSR>
+    <>
       <NavbarLayout />
       <HeroSection />
       <div className={`lg:pl-100 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
@@ -144,6 +143,6 @@ export default function Categories({ data }: CategoriesProps) {
         </div>
       </div>
       <FooterLayout />
-    </NoSSR>
+    </>
   );
 }

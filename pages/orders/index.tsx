@@ -6,8 +6,8 @@ import { FaShoppingCart, FaTrash, FaChild } from 'react-icons/fa';
 import Image from 'next/image';
 import ErrorMessage from '@/components/modals/errorMessage';
 import SuccessModal from '@/components/modals/successModal';
-import NavbarLayout from '../navbarLayout';
-import FooterLayout from '../footerLayout';
+import NavbarLayout from '@/components/navbarLayout';
+import FooterLayout from '@/components/footerLayout';
 import { useTheme } from 'next-themes';
 import NoSSR from '@/components/noSSR';
 interface OrderItem {
