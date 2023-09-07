@@ -9,7 +9,7 @@ import SidebarSection from '@/components/categorySiebar';
 import ProductList from '@/components/productList';
 import SearchBar from '@/components/searchBar';
 const { useRouter } = require('next/navigation');
-
+import NoSSR from '@/components/noSSR';
 interface Product {
   id: number;
   name: string;
@@ -98,7 +98,7 @@ export default function Categories({ data }: CategoriesProps) {
   };
 
   return (
-    <>
+    <NoSSR>
       <NavbarLayout />
       <HeroSection />
       <div className={`lg:pl-100 ${theme === 'dark' ? 'bg-zinc-800' : 'bg-gray-100'}`}>
@@ -143,6 +143,6 @@ export default function Categories({ data }: CategoriesProps) {
         </div>
       </div>
       <FooterLayout />
-    </>
+    </NoSSR>
   );
 }
